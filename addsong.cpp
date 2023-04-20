@@ -6,25 +6,8 @@
 
 using namespace std;
 
-int manualadd(string outputfile, int begin){
-    string userinput;
-    string parameters;
-    ofstream output;
-    output.open(outputfile, ofstream::app);
 
-    if(begin == 0){
-        cout << "Please enter the parameters, separated by , and ending with a newline" << endl;
-        cin >> userinput;
-        output << userinput;
-    }
-    cout << "Insert Song, followed by a newline: " << endl;
-    cin >> userinput;
-    output << userinput;
-
-    return 0;
-}
-
-int importfromfile(string outputfile, int begin){
+int importfromfile(string outputfile, int begin, vector<vector<string>>& content){
     string inputfile;
     cout << "Name of Input File: \n";
     cin >> inputfile;
@@ -34,14 +17,11 @@ int importfromfile(string outputfile, int begin){
         cin >> inputfile;
         ifstream input(inputfile);
     }
-    ofstream output;
-    output.open(outputfile, ofstream::app);
-
-    vector<vector<string>> content;
+    
     vector<string> row;
     string line, word;
 
-    // Write some data to the file
+    //Read data from file, and add to vector
     if(begin != 0){
         getline(input, line);
     }
@@ -53,22 +33,35 @@ int importfromfile(string outputfile, int begin){
         }
         content.push_back(row);
     }
-    //Export Changes to Output File
-    for(int i = 0; i < content.size(); i++){
-		for(int j = 0; j < content[i].size(); j++){
-            if(j < content[i].size() - 1){
-                output << content[i][j] << ",";
-            }
-            else{
-                output << content[i][j] << endl;
-            }
-		}
-	}
     
-
-    // Close the file
-    output.close();
 
     cout << "\nSongs Imported \n" << endl;
     return 0;
 }
+
+// int manualadd(string outputfile, int begin, vector<vector<string>>& content){
+//     string userinput;
+//     string parameters;
+//     vector<string> row;
+
+//     if(begin == 0){
+//         cout << "Please declare the parameters separated a newline. To end input, enter /" << endl;
+//         cin >> userinput;
+//         while(userinput != "/"){
+//             row.push_back(userinput);
+//             cin >> userinput;
+//         }
+//         content.push_back(row);
+//     }
+//     else{
+//         for(int i = 0; i < content.size(); i++){
+//             cout << "Insert " << content[0][i] << endl;
+//             cin >> userinput;
+//             row.push_back(userinput);
+//         }
+//         cout << "getting out of input loop" << endl;
+//         content.push_back(row);
+//     }
+
+//     return 0;
+// }
