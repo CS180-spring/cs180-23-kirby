@@ -1,5 +1,6 @@
 #include <iostream>
 #include "addsong.cpp"
+#include "searchartist.cpp"
 
 using namespace std;
 
@@ -17,11 +18,15 @@ int main() {
     ofstream output;
     output.open("output.csv");
 
+    //For Searching Artists
+    string artist;
+
     while(userinput > 0){
         userinput = 1000;
         cout << "Options: " << endl;
         cout << "1. Import from CSV File" << endl;
         // cout << "2. Add a Song Manually" << endl;
+        // cout << "3. Search for artist's songs" << endl;
         cout << "9. Export Changes to file" << endl;
         cout << "0 to Exit Program" << endl;
         cin >> userinput;
@@ -34,6 +39,11 @@ int main() {
         //     manualadd(outputfile, begin, kirbydb);
         //     begin++;
         // }
+        if(userinput == 3){
+            cout << "Input artist to search for: ";
+            cin >> artist;
+            searchartist(kirbydb, artist);
+        }
         if(userinput == 9){
             cout << "Export Changes to file \n" << endl;
             for(int i = 0; i < kirbydb.size(); i++){
