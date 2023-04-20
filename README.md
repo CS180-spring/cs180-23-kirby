@@ -11,3 +11,6 @@ Delete data that has been vectorized
 Search through the songs by its name
 
 These features are work in progress and can be maniulated.
+
+
+The user interface for now is going to be the terminal, since we arent focusing on a GUI 
