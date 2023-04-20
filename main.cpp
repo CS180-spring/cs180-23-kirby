@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string>
 #include "kirbydb.h"
+#include "searchartist.cpp"
 
 using namespace std;
 
