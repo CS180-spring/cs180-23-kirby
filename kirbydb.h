@@ -26,6 +26,7 @@ public:
     }
     void addGenre(string& name) {
         Genre* newGenre = new Genre(name);
+        genres.push_back(newGenre);
     }
 };
 
