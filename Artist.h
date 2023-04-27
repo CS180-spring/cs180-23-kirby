@@ -12,7 +12,7 @@
 class Artist {
 private:
     string name;
-    vector<Album*> albums;
+    unordered_map<string, Album*> albums;
 public:
     Artist(string& name){
         this->name = name;

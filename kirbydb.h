@@ -6,10 +6,10 @@
 #define CS180_23_KIRBY_KIRBYDB_H
 using namespace std;
 #include "Genre.h"
-#include <vector>
+#include <unordered_map>
 class kirbydb {
 private:
-    vector<Genre*> genres;
+    unordered_map<sting, Genre*> genres;
 public:
     void addSong(string genre, string artist, string album, string song, int trackNumber);
     void removeSong(string genre, string artist, string album, string song);
