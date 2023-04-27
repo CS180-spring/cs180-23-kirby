@@ -10,12 +10,24 @@ using namespace std;
 class kirbydb {
 private:
     vector<Genre*> genres;
+    vector<Artist*> artists;
 public:
     void addSong(string genre, string artist, string album, string song, int trackNumber);
     void removeSong(string genre, string artist, string album, string song);
     bool searchSong(string genre, string artist, string album, string song);
     bool searchAlbum(string genre, string artist, string album);
-    bool searchArtist(string genre, string artist);
+    bool searchArtist(string genre, string artist){
+        for(Genre* currGenre : genres){
+            if(currGenre->getGenre() == genre){
+                for(Artist* currArtist : artists){
+                    if(currArtist->getArtist() == artist){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     bool searchGenre(string genre){
         for(Genre* currGenre : genres){
             if(currGenre->getGenre() == genre){
