@@ -19,6 +19,7 @@ KirbyDB is a **terminal console interface** that allows users to store and inter
   - For example, they can just input the number "1" to add a denre to the database. 
   
 - **Code behind our terminal user interface at the moment:**
+
 ![image](https://user-images.githubusercontent.com/77127695/235016485-f6dad09c-8638-485c-916d-c42aaa321422.png)
 
 
