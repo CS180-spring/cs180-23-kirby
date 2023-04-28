@@ -16,7 +16,7 @@ KirbyDB is a **terminal console interface** that allows users to store and inter
 ## 💡 Features
 - **How users use the system:**
   - Users are greeted with a menu of options of what they can do to the database. From there, they can input the number correlating to what they want to do in the database.
-  - For example, they can just input the number "1" to add a denre to the database. 
+  - For example, they can just input the number "1" to add a genre to the database. 
   
 - **Code behind our terminal user interface at the moment:**
 
