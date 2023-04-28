@@ -1,13 +1,13 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10809533&assignment_repo_type=AssignmentRepo)
 
-# GenericDB
-KirbyDB is a **terminal console interface** that allows users to store and interact with data. Users can communicate through the terminal-based interface to create, add, delete, or modify seongs. The system will be able to filter and search through these documents.
+# KirbyDB
+KirbyDB is a **terminal console interface** that allows users to store and interact with data. Users can communicate through the terminal-based interface to create, add, delete, or modify songs. The system will be able to filter and search through these documents.
 
 ## 👥 Team Members
 - Jorge Aguilar
 - Jonas Tan
 - Juan
-- Joseph
+- Joseph Hu
 - Chris
 
 ## 🛠️ Technologies
@@ -19,6 +19,7 @@ KirbyDB is a **terminal console interface** that allows users to store and inter
   - For example, they can just input the number "1" to add a denre to the database. 
   
 - **Code behind our terminal user interface at the moment:**
+![image](https://user-images.githubusercontent.com/77127695/235016485-f6dad09c-8638-485c-916d-c42aaa321422.png)
 
 
 - **Our features:**
