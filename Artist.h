@@ -14,8 +14,8 @@ private:
     string name;
     unordered_map<string, Album*> albums;
 public:
-    Artist(string& name){
-        this->name = name;
+    Artist(string& passname){
+        name = passname;
     }
     string getArtist(){return name;};
     void addAlbum(string& albumName, string& songName, int& trackNumber);

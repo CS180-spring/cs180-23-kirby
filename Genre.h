@@ -13,12 +13,15 @@ class Genre {
     string name;
     unordered_map<string,Artist*> artists;
 public:
-    string getGenre(){return name;};
+    
     void addArtist(string& artistName, string& album, string& song, int& trackNumber);
 
-    Genre(string& name){
-        this->name = name;
+    Genre(string name){
+        name = "default";
     }
+    string getGenre(){
+        return name;
+    } //fixing rn
 };
 
 
