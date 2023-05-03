@@ -6,19 +6,12 @@ using namespace std;
 
 int main() {
     kirbydb database;
-    cout << "Creating a new Genre called rap" << endl;
-    string genreName = "rap";
-    database.addGenre(genreName);
-    cout << "Does it exist?: ";
-    if(database.searchGenre(genreName)){
-        cout << "Yes" << endl;;
-    }
-    else{
-        cout << "No" << endl;
-    }
-    Genre* newData = database.returnGenre(genreName);
-    cout << "Created new data to access genre object" << endl;
-    newData->getGenre();
-
+    cout << "Creating a new song called Monsters by Imagine Dragon" << endl;
+    string songName = "Monsters";
+    string artistName = "Imagine Dragons";
+    string albumName = "Single";
+    string genreName = "Pop";
+    database.addSong(songName, artistName, albumName, genreName);
+    Song* currentSongPointer
     return 0;
 }
