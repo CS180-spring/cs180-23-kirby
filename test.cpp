@@ -12,6 +12,8 @@ int main() {
     string albumName = "Single";
     string genreName = "Pop";
     database.addSong(songName, artistName, albumName, genreName);
-    Song* currentSongPointer
+    Song* currentSongPointer = database.returnSong(songName);
+    cout << "Song Pointer Created." << endl;
+    currentSongPointer->printParameters();
     return 0;
 }

@@ -12,8 +12,9 @@ public:
         Song* newSong = new Song(songName, artistName, albumName, genreName);
         songlist.insert({songName, newSong});
     }
-    Song* returnSong(int songname){
-        unordered_map<string, Song*>::iterator foundsong = songlist.find(songname);
+    Song* returnSong(string songname){
+        unordered_map<string,Song*>::iterator got = songlist.find (songname);
+        return got->second;
     }
     //Haven't touched below this
     void removeSong(string songName, string artistName, string albumName, string genreName);
