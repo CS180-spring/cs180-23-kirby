@@ -1,66 +1,74 @@
 #include <iostream>
 #include <string>
 #include "kirbydb.h"
+#include "addsong.cpp"
+#include "terminal.cpp"
 
 using namespace std;
 
-//Reads CSV files, store data inside a vector.
-//Does not account for duplicates.
 int main() {
     kirbydb database;
-    string nameAdd = "Rap";
-    database.addGenre(nameAdd);
-    if(database.searchGenre(nameAdd)){
-        cout << "Yes";
-    }
-    else{
-        cout << "No";
-    }
-//    int begin = 0; //Represents the very first imported file; Otherwise, ignore the first line(Dictates the columns)
-//    int userinput = 1000;
-//    string outputfile;
-//    vector<vector<string>> kirbydb;
-    //Database Vector. All data is stored via kirbydb[i][j]. 
-    //i is the row #, while j is the words in said row.
+    string outputfile = "output.csv";
+    int terminalinput = 10000; //some large value
+    string userinput;
+    Song* currentSongPointer; //Used to access current song pointer
 
-    //Default Output File = output.csv
-//    ofstream output;
-//    output.open("output.csv");
-//
-//    while(userinput > 0){
-//        userinput = 1000;
-//        cout << "Options: " << endl;
-//        cout << "1. Import from CSV File" << endl;
-//        // cout << "2. Add a Song Manually" << endl;
-//        cout << "9. Export Changes to file" << endl;
-//        cout << "0 to Exit Program" << endl;
-//        cin >> userinput;
-//
-//        if(userinput == 1){
-//            importfromfile(outputfile, begin, kirbydb);
-//            begin++;
-//        }
-//        // if(userinput == 2){
-//        //     manualadd(outputfile, begin, kirbydb);
-//        //     begin++;
-//        // }
-//        if(userinput == 9){
-//            cout << "Export Changes to file \n" << endl;
-//            for(int i = 0; i < kirbydb.size(); i++){
-//		        for(int j = 0; j < kirbydb[i].size(); j++){
-//                    if(j < kirbydb[i].size() - 1){
-//                        output << kirbydb[i][j] << ",";
-//                    }
-//                    else{
-//                        output << kirbydb[i][j] << endl;
-//                    }
-//		        }
-//	        }
-//        }
-//    }
-//
-//    // Close the file
-//    output.close();
-    
+    system("clear");
+    cout << "Initialized KirbyDB database" << endl;
+    cout << "Default Export File is output.csv" << endl;
+
+    while(terminalinput > -10){ //arbitrary number to stay in loop
+        terminalprint();
+        cout << "\nThere are currently " << database.returnSongNum() << " songs in the database." << endl;
+        cin >> terminalinput;
+        if(terminalinput == 1){
+            system("clear");
+            addPrint();
+            cin >> terminalinput;
+            if(terminalinput == 1){
+                system("clear"); //only works on linux systems
+                cin.ignore();
+                addonesong(database);
+            }
+            else if(terminalinput == 2){
+                system("clear");
+                cin.ignore();
+                importfromfile(outputfile, database);
+            }
+            else{
+                cout << "Invalid Option. Returning to Terminal." << endl;
+            }
+        }
+        else if(terminalinput == 2){
+            system("clear");
+            cout << "Enter the name of the song to delete: " << endl;
+            cin >> userinput;
+            database.removeSong(userinput);
+        }
+        else if(terminalinput == 3){
+            system("clear");
+            cout << "Enter the name of the song to search: " << endl;
+            cin >> userinput;
+            if(database.searchSong(userinput)){
+                currentSongPointer = database.returnSong(userinput);
+                currentSongPointer->printParameters();
+            }
+            else{
+                cout << "Song does not exist" << endl;
+            }
+        }
+        else if(terminalinput == 4){
+            //create playlist
+        }
+        else if(terminalinput == 6){
+            database.listsonglist();
+            cout << endl;
+        }
+        else if(terminalinput == 0){
+            cout << "Exiting Program" << endl;
+            break;
+        }
+    }
+
     return 0;
 }
