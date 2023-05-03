@@ -6,6 +6,8 @@ using namespace std;
 class kirbydb {
 private:
     unordered_map<string, Song*> songlist;
+    unordered_map<string, Song*> artistlist;
+    unordered_map<string, Song*> genrelist;
 public:
     //Functions to be implemented
     void addSong(string songName, string artistName, string albumName, string genreName){
