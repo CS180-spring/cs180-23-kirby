@@ -1,45 +1,66 @@
-//
-// Created by Jorge Aguilar on 4/25/23.
-//
-
 #ifndef CS180_23_KIRBY_KIRBYDB_H
 #define CS180_23_KIRBY_KIRBYDB_H
 using namespace std;
-#include "Genre.h"
-#include <vector>
+#include <unordered_map>
+#include "Song.h"
 class kirbydb {
 private:
-    vector<Genre*> genres;
-    vector<Artist*> artists;
+    unordered_map<string, Song*> songlist;
+    //Up for change below(Search by artist, genre)
+    unordered_map<string, Song*> artistlist;
+    unordered_map<string, Song*> genrelist;
+    //
+    unsigned int songnum;
 public:
-    void addSong(string genre, string artist, string album, string song, int trackNumber);
-    void removeSong(string genre, string artist, string album, string song);
-    bool searchSong(string genre, string artist, string album, string song);
+    //Functions to be implemented
+    kirbydb(){
+        songnum = 0;
+    }
+    ~kirbydb(){}
+    void listsonglist(){
+        for (auto x : songlist){
+            cout << x.first << endl;
+        }
+    }
+    void addSong(string songName, string artistName, string albumName, string genreName){
+        Song* newSong = new Song(songName, artistName, albumName, genreName);
+        songlist.insert({songName, newSong});
+        songnum++;
+    }
+    Song* returnSong(string songname){
+        unordered_map<string,Song*>::iterator got = songlist.find (songname);
+        return got->second;
+    }
+    void removeSong(string songName){
+        unordered_map<string,Song*>::iterator got = songlist.find (songName);
+        if(got == songlist.end()){
+            cout << "Song does not exist!" << endl;
+            return;
+        }
+        //Found the song. Now delete it!
+        Song* deletepointer = got->second;
+        delete deletepointer;
+        songlist.erase(songName);
+        songnum--;
+        cout << "Song deleted." << endl;
+    }
+    int returnSongNum(){
+        //Used to check if the database is empty
+        return songnum;
+    }
+    //Haven't touched below this
+    bool searchSong(string songName){
+        unordered_map<string,Song*>::iterator got = songlist.find (songName);
+        if(got == songlist.end()){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     bool searchAlbum(string genre, string artist, string album);
-    bool searchArtist(string genre, string artist){
-        for(Genre* currGenre : genres){
-            if(currGenre->getGenre() == genre){
-                for(Artist* currArtist : artists){
-                    if(currArtist->getArtist() == artist){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    bool searchGenre(string genre){
-        for(Genre* currGenre : genres){
-            if(currGenre->getGenre() == genre){
-                return true;
-            }
-        }
-        return false;
-    }
-    void addGenre(string& name) {
-        Genre* newGenre = new Genre(name);
-        genres.push_back(newGenre);
-    }
+    bool searchArtist(string genre, string artist);
+    bool searchGenre(string genre);
 };
 
 

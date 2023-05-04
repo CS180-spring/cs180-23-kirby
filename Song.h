@@ -11,12 +11,25 @@ using namespace std;
 class Song {
 private:
     string name;
-    int number;
+    string artist;
+    string album;
+    string genre;
 public:
-    string getName(){return name;}
-    Song(string& songName, int& trackNumber){
+    Song(){}
+    ~Song(){}
+    Song(string songName, string artistName, string albumName, string genreName){
         name = songName;
-        number = trackNumber;
+        artist = artistName;
+        album = albumName;
+        genre = genreName;
+        // number = trackNumber;
+    }
+    void printParameters(){
+        cout << "Song Name: " << name << endl;
+        cout << "Artist Name: " << artist << endl;
+        cout << "Album Name: " << album << endl;
+        cout << "Genre Name: " << genre << endl;
+        // cout << "Track Number: " << number << endl;
     }
 };
 
