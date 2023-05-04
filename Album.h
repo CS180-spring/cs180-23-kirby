@@ -7,17 +7,35 @@
 #include "Song.h"
 #include <string>
 #include <iostream>
-#include <unordered_map>
+#include <map>
 class Album {
 private:
     string name;
-    int releaseYear;
-    unordered_map<string, Song*> songs;
+    map<int, string> songs;
 
 public:
     string getAlbumName(){return name;}
-    int getReleaseYear(){return releaseYear;}
-    void addSong(string& songName);
+    Album(string& albumName){
+        name = albumName;
+    }
+    void addSong(string& songName, int& songNumber){
+        if(songs.find(songNumber) == songs.end()){
+            songs[songNumber] = songName;
+        }
+        else{
+            cout << "Song Already Exists In Database! Nothing Done" << endl;
+        }
+    }
+    void printAlbum(){
+        cout << getAlbumName() << endl;
+        if(songs.size() == 0){
+            cout << "Album Empty" << endl;
+            return;
+        }
+        for(auto currSong : songs){
+            cout << currSong.first << ". " << currSong.second << endl;
+        }
+    }
 
 };
 

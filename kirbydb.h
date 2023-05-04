@@ -9,25 +9,21 @@ using namespace std;
 #include <unordered_map>
 class kirbydb {
 private:
-    unordered_map<sting, Genre*> genres;
+    unordered_map<string, Genre*> genres;
 public:
-    void addSong(string genre, string artist, string album, string song, int trackNumber);
-    void removeSong(string genre, string artist, string album, string song);
-    bool searchSong(string genre, string artist, string album, string song);
-    bool searchAlbum(string genre, string artist, string album);
-    bool searchArtist(string genre, string artist);
-    bool searchGenre(string genre){
-        for(Genre* currGenre : genres){
-            if(currGenre->getGenre() == genre){
-                return true;
-            }
-        }
-        return false;
+    void addSong(string& songName, string& songNumber, string& artistName, string& albumName, string& genreName);
+    void removeSong(string& genre, string& artist, string& album, string& song);
+    bool searchSong(string& genre, string& artist, string& album, string& song);
+    bool searchAlbum(string& genre, string& artist, string& album);
+    bool searchArtist(string& genre, string& artist);
+    bool searchGenre(string& genre){
+        return genres.find(genre) != genres.end();
     }
-    void addGenre(string& name) {
-        Genre* newGenre = new Genre(name);
-        genres.push_back(newGenre);
-    }
+    void printArtist(string& genreName, string& artistName);
+    void addGenre(string& genreName);
+    void addArtist(string& genreName, string& artistName);
+    void addAlbum(string& genreName, string& artistName, string& albumName);
+    void addSong(string& genreName, string& artistName, string& albumName, string& songName, int& songNumber);
 };
 
 

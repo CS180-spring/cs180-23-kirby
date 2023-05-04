@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include<unordered_map> 
 
 class Artist {
 private:
@@ -18,7 +19,30 @@ public:
         this->name = name;
     }
     string getArtist(){return name;};
-    void addAlbum(string& albumName, string& songName, int& trackNumber);
+    void addAlbum(string& albumName){
+        if(!albums[albumName]){
+            albums[albumName] = new Album(albumName);
+        }
+        else{
+            cout << "Album Already Exists In Database! Nothing Done." << endl;
+        }
+    }
+    void addSong(string& albumName, string& songName, int& songNumber){
+        if(!albums[albumName]){
+            albums[albumName] = new Album(albumName);
+        }
+        albums[albumName]->addSong(songName, songNumber);
+    }
+    void printAlbums(){
+        for(auto currAlbum : albums){
+            currAlbum.second->printAlbum();
+        }
+    }
+    void printAlbum(string& albumName){
+        for(auto currAlbum : albums){
+            currAlbum.second->printAlbum();
+        }
+    }
 };
 
 

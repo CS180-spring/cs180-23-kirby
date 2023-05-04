@@ -4,14 +4,36 @@
 
 #include "kirbydb.h"
 
-void kirbydb::addSong(string& genre, string& artist, string& album, string& song, int trackNumber){
-    for(auto currGenre : this->Genres){
-        if(currGenre->name == genre){
-            currGenre->addArtist(artist, album, song);
-            return;
-        }
+void kirbydb::addGenre(string& genreName){
+    if(!genres[genreName]){
+        genres[genreName] = new Genre(genreName);
     }
-    Genre* newGenre = new Genre(genre);
-    newGenre->addArtist(artist, album, song, trackNumber);
+    else{
+        cout << "Genre Already Exists In Database! Nothing Done" << endl;
+    }
     return;
 }
+void kirbydb::addArtist(string& genreName, string& artistName){
+    if(!genres[genreName]){
+        genres[genreName] = new Genre(genreName);
+    }
+    genres[genreName].addArtist(artistName);
+    return;
+}
+void kirbydb::addAlbum(string& genreName, string& artistName, string& albumName){
+    if(!genres[genreName]){
+        genres[genreName] = new Genre(genreName);
+    }
+    genres[genreName].addAlbum(artistName, albumName);
+    return;
+}
+void kirbydb::addSong(string& genreName, string& artistName, string& albumName, string& songName, string& songNumber){
+    if(!genres[genreName]){
+        genres[genreName] = new Genre(genreName);
+    }
+    genres[genreName].addSong(songName, songNumber, artistName, albumName);
+    return;
+}
+
+
+

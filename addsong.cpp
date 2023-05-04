@@ -7,61 +7,54 @@
 using namespace std;
 
 
-int importfromfile(string outputfile, int begin, vector<vector<string>>& content){
+int importfromfile(string outputfile, kirbydb &database){
     string inputfile;
     cout << "Name of Input File: \n";
     cin >> inputfile;
     ifstream input(inputfile);
     while (!input) {
-        cerr << "Error: Input File does not exist!" << endl;
+        cout << "Error: Input File does not exist!" << endl;
+        cout << "You typed: " << inputfile << endl;
         cin >> inputfile;
         ifstream input(inputfile);
     }
-    
-    vector<string> row;
+    vector<vector<string>> content;
+    vector<string> row(4);
     string line, word;
-
+    int i = 0;
     //Read data from file, and add to vector
-    if(begin != 0){
-        getline(input, line);
-    }
     while(getline(input, line)){
         row.clear();
         stringstream str(line);
         while(getline(str, word, ',')){
-            row.push_back(word);
+            row[i++] = word;
         }
         content.push_back(row);
     }
-    
+    //Content is now inside vector. Add to database
+    for(int i = 0; i < content.size(); i++){
+		database.addSong(content[i][0], content[i][1],content[i][2],content[i][3]);
+	}
 
     cout << "\nSongs Imported \n" << endl;
     return 0;
 }
 
-// int manualadd(string outputfile, int begin, vector<vector<string>>& content){
-//     string userinput;
-//     string parameters;
-//     vector<string> row;
+void addonesong(kirbydb &database){ //pass in by reference
+    string songName, artistName, albumName, genreName;
+    int trackNumber;
+    cout << "Insert Song Information:" << endl;
+    cout << "Insert Song Name:" << endl;
+    getline(cin, songName);
+    cout << "Insert Song Album Track Number:" << endl;
+    getline(cin, trackNumber);
+    cout << "Insert Song Artist:" << endl;
+    getline(cin, artistName);
+    cout << "Insert Song Album:" << endl;
+    getline(cin, albumName);
+    cout << "Insert Song Genre:" << endl;
+    getline(cin, genreName);
+    database.addSong(genreName, artistName, albumName, songName, trackNumber);
 
-//     if(begin == 0){
-//         cout << "Please declare the parameters separated a newline. To end input, enter /" << endl;
-//         cin >> userinput;
-//         while(userinput != "/"){
-//             row.push_back(userinput);
-//             cin >> userinput;
-//         }
-//         content.push_back(row);
-//     }
-//     else{
-//         for(int i = 0; i < content.size(); i++){
-//             cout << "Insert " << content[0][i] << endl;
-//             cin >> userinput;
-//             row.push_back(userinput);
-//         }
-//         cout << "getting out of input loop" << endl;
-//         content.push_back(row);
-//     }
-
-//     return 0;
-// }
+    return;
+}
