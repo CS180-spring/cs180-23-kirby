@@ -28,7 +28,7 @@ public:
         }
     }
     void addSong(string& albumName, string& songName, int& songNumber){
-        if(!albums[albumName]){
+        if(albums.find(albumName) == albums.end()){
             albums[albumName] = new Album(albumName);
         }
         albums[albumName]->addSong(songName, songNumber);
@@ -39,8 +39,14 @@ public:
         }
     }
     void printAlbum(string& albumName){
-        for(auto currAlbum : albums){
-            currAlbum.second->printAlbum();
+        if(albums.find(albumName) == albums.end()){
+            cout << "No Album By That Name In Database." << endl;
+            if(albums.size() > 0){
+                cout << "Artist Only Has These Albums Available:" << endl;
+                for(auto album : albums){
+                    cout << album.first << endl;
+                }
+            }
         }
     }
 };
