@@ -58,7 +58,16 @@ int main() {
             }
         }
         else if(terminalinput == 4){
-            //create playlist
+            system("clear");
+            cin.ignore();
+            database.addPlaylist();
+            
+        }
+        else if(terminalinput == 5){
+            system("clear");
+            cin.ignore();
+            database.listPlaylist();
+            
         }
         else if(terminalinput == 6){
             database.listsonglist();

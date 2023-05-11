@@ -18,7 +18,7 @@ int importfromfile(string outputfile, kirbydb &database){
         cin >> inputfile;
         ifstream input(inputfile);
     }
-    vector<vector<string>> content;
+    vector<vector<string> > content;
     vector<string> row;
     string line, word;
 

@@ -31,6 +31,9 @@ public:
         cout << "Genre Name: " << genre << endl;
         // cout << "Track Number: " << number << endl;
     }
+    string getName(){
+        return name;
+    }
 };
 
 
