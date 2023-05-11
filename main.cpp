@@ -61,7 +61,7 @@ int main() {
             system("clear");
             cout << "Enter the name of the playlist: " << endl;
             cin >> userinput;
-            database.listsonglist();
+            addPlaylist(database);
             cout << "Enter the name of the song to add: " << endl;
             cin >> userinput;
             if(database.searchSong(userinput)){

@@ -58,6 +58,16 @@ public:
             return true;
         }
     }
+    //void listplaylistlist(){
+    //    for (auto x: playlistlist){
+    //        cout << x.first << endl;
+    //    }
+    //}
+    void addPlaylist(string playlistName){
+        Song* newPlaylist = new Song(playlistName, "", "", ""); 
+        songlist.insert({playlistName, newPlaylist});
+        songnum++;
+    }
     bool searchAlbum(string genre, string artist, string album);
     bool searchArtist(string genre, string artist);
     bool searchGenre(string genre);
