@@ -12,14 +12,13 @@ int importfromfile(string outputfile, kirbydb &database){
     // cout << "Name of Input File: \n";
     cin >> inputfile;
     ifstream input(inputfile);
-    // while (!input) {
-    //     cout << "Error: Input File does not exist!" << endl;
-    //     cout << "You typed: " << inputfile << endl;
-    //     cin.ignore();
-    //     cin >> inputfile;
-    //     ifstream input(inputfile);
-    // }
-    vector<vector<string>> content;
+    while (!input) {
+        cout << "Error: Input File does not exist!" << endl;
+        cout << "You typed: " << inputfile << endl;
+        cin >> inputfile;
+        ifstream input(inputfile);
+    }
+    vector<vector<string> > content;
     vector<string> row;
     string line, word;
 

@@ -73,9 +73,7 @@ int main() {
                 // }
             }
         }
-        else if(terminalinput == "4"){
-            //create playlist
-        }
+        
         else if(terminalinput == "songlist"){
             database.listsonglist();
         }
@@ -88,6 +86,14 @@ int main() {
         }
         else if(terminalinput == "sizedb"){
             cout << "There are currently " << database.returnSongNum() << " songs in the database." << endl;
+        }
+        else if(terminalinput == "createplaylist"){
+            cin.ignore();
+            database.addPlaylist();
+        }
+        else if(terminalinput == "playlist"){
+            cin.ignore();
+            database.listPlaylist();
         }
         else{
             cout << "Invalid Input" << endl;
