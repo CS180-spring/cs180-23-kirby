@@ -3,12 +3,13 @@
 using namespace std;
 #include <unordered_map>
 #include "Song.h"
+#include <fstream>
 class kirbydb {
 private:
     unordered_map<string, Song*> songlist;
     //Up for change below(Search by artist, genre)
-    unordered_map<string, Song*> artistlist;
-    unordered_map<string, Song*> genrelist;
+    // unordered_map<string, Song*> artistlist;
+    // unordered_map<string, Song*> genrelist;
     //
     unsigned int songnum;
 public:
@@ -58,9 +59,75 @@ public:
             return true;
         }
     }
-    bool searchAlbum(string genre, string artist, string album);
-    bool searchArtist(string genre, string artist);
-    bool searchGenre(string genre);
+    bool searchArtist(string artistName){
+        int songcount = 0;
+        for(auto x : songlist){
+            if(x.second->returnArtist() == artistName){
+                // cout << "Found Artist" << endl;
+                songcount++;
+            }
+        }
+        if(songcount > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    bool searchAlbum(string albumName){
+        int songcount = 0;
+        for(auto x : songlist){
+            if(x.second->returnAlbum() == albumName){
+                // cout << "Found Album" << endl;
+                songcount++;
+            }
+        }
+        if(songcount > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    bool searchGenre(string genreName);
+
+    void printArtist(string artist){
+        if(searchArtist(artist)){
+            cout << "Songs by " << artist << ": " << endl; 
+            for (auto x : songlist){
+                if(x.second->returnArtist() == artist){
+                    cout << x.first << endl;
+                }
+                // cout << x.second->returnArtist() << endl;
+            }
+        }
+        else{
+            cout << "Artist does not exist" << endl;
+        }
+    }
+
+    void printAlbum(string album){
+        if(searchAlbum(album)){
+            cout << "Songs by " << album << ": " << endl;
+            for (auto x : songlist){
+                if(x.second->returnAlbum() == album){
+                    cout << x.first << endl;
+                }
+                // cout << x.second->returnArtist() << endl;
+            }
+        }
+        else{
+            cout << "Album does not exist" << endl;
+        }
+    }
+
+    void exportsonglist(){
+        ofstream output;
+        output.open("output.csv");
+        for (auto x : songlist){
+            output << x.second->returnName() << "," << x.second->returnArtist() << ","<< x.second->returnAlbum() << "," << x.second->returnGenre() << endl;
+        }
+    }
 };
 
 
