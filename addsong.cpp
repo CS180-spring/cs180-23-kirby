@@ -9,7 +9,7 @@ using namespace std;
 
 int importfromfile(string outputfile, kirbydb &database){
     string inputfile;
-    cout << "Name of Input File: \n";
+    // cout << "Name of Input File: \n";
     cin >> inputfile;
     ifstream input(inputfile);
     while (!input) {
@@ -34,9 +34,9 @@ int importfromfile(string outputfile, kirbydb &database){
     //Content is now inside vector. Add to database
     for(int i = 0; i < content.size(); i++){
 		database.addSong(content[i][0], content[i][1],content[i][2],content[i][3]);
+        // cout << content[i][0] << content[i][1] << content[i][2] << content[i][3] << endl;
 	}
-
-    cout << "\nSongs Imported \n" << endl;
+    cout << "Songs Imported" << endl;
     return 0;
 }
 
@@ -55,3 +55,12 @@ void addonesong(kirbydb &database){ //pass in by reference
 
     return;
 }
+
+// void exportfromfile(kirbydb &database){
+//     ofstream output;
+//     output.open("output.csv");
+//     cout << "Export Changes to file \n" << endl;
+//             for (auto x : songlist){
+//                 output << 
+//             }
+// }

@@ -1,7 +1,3 @@
-//
-// Created by Jorge Aguilar on 4/24/23.
-//
-
 #ifndef CS180_23_KIRBY_SONG_H
 #define CS180_23_KIRBY_SONG_H
 #include <string>
@@ -32,7 +28,19 @@ public:
         // cout << "Track Number: " << number << endl;
     }
     string getName(){
+        return name; //duplicate for jorge
+    }
+    string returnName(){
         return name;
+    }
+    string returnArtist(){
+        return artist;
+    }
+    string returnAlbum(){
+        return album;
+    }
+    string returnGenre(){
+        return genre;
     }
 };
 
