@@ -61,12 +61,13 @@ int main() {
             system("clear");
             cout << "Enter the name of the playlist: " << endl;
             cin >> userinput;
-            addPlaylist(database);
+            cout << "Songs in Database: " << endl;
+            database.addPlaylist(userinput);
+            database.listsonglist();
             cout << "Enter the name of the song to add: " << endl;
             cin >> userinput;
-            if(database.searchSong(userinput)){
-                //add song to the playlist
-            }
+            database.addToPlaylist(userinput);
+            database.listsonglist();
         }
         else if(terminalinput == 5){
             system("clear");

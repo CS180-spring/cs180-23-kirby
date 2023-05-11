@@ -3,9 +3,11 @@
 using namespace std;
 #include <unordered_map>
 #include "Song.h"
+#include "playlist.h"
 class kirbydb {
 private:
     unordered_map<string, Song*> songlist;
+    unordered_map<string, Playlist*> playlistList;
     //Up for change below(Search by artist, genre)
     unordered_map<string, Song*> artistlist;
     unordered_map<string, Song*> genrelist;
@@ -64,9 +66,19 @@ public:
     //    }
     //}
     void addPlaylist(string playlistName){
-        Song* newPlaylist = new Song(playlistName, "", "", ""); 
-        songlist.insert({playlistName, newPlaylist});
+        Playlist* newPlaylist = new Playlist(playlistName); 
+        playlistList.insert({playlistName, newPlaylist});
         songnum++;
+    }
+    void addToPlaylist(string songName){
+        if(playlistList.empty()){
+            cout << "No playlist to add to!" << endl;
+            return;
+        }
+        auto previousEntryIterator = std::prev(playlistList.end());
+
+        Playlist* previousEntry = previousEntryIterator->second;
+        previousEntryIterator->second = new Playlist(previousEntry->getName() + ", " + songName); 
     }
     bool searchAlbum(string genre, string artist, string album);
     bool searchArtist(string genre, string artist);
