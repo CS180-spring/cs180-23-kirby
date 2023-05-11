@@ -9,7 +9,7 @@ using namespace std;
 int main() {
     kirbydb database;
     string outputfile = "output.csv";
-    int terminalinput = 10000; //some large value
+    string terminalinput = "n/a"; //input, as long as it is not exit
     string userinput;
     Song* currentSongPointer; //Used to access current song pointer
 
@@ -17,56 +17,80 @@ int main() {
     cout << "Initialized KirbyDB database" << endl;
     cout << "Default Export File is output.csv" << endl;
 
-    while(terminalinput > -10){ //arbitrary number to stay in loop
-        terminalprint();
-        cout << "\nThere are currently " << database.returnSongNum() << " songs in the database." << endl;
+
+    while(terminalinput != "exit"){ //arbitrary number to stay in loop
+        newterminalprint();
         cin >> terminalinput;
-        if(terminalinput == 1){
-            system("clear");
-            addPrint();
-            cin >> terminalinput;
-            if(terminalinput == 1){
-                system("clear"); //only works on linux systems
-                cin.ignore();
-                addonesong(database);
-            }
-            else if(terminalinput == 2){
-                system("clear");
-                cin.ignore();
-                importfromfile(outputfile, database);
-            }
-            else{
-                cout << "Invalid Option. Returning to Terminal." << endl;
-            }
+        if(terminalinput == "add"){
+            cin.ignore();
+            addonesong(database);
         }
-        else if(terminalinput == 2){
-            system("clear");
+        else if(terminalinput == "import"){
+
+            cin.ignore();
+            importfromfile(outputfile, database);
+        }
+        else if(terminalinput == "delete"){
             cout << "Enter the name of the song to delete: " << endl;
             cin >> userinput;
             database.removeSong(userinput);
         }
-        else if(terminalinput == 3){
-            system("clear");
-            cout << "Enter the name of the song to search: " << endl;
-            cin >> userinput;
-            if(database.searchSong(userinput)){
-                currentSongPointer = database.returnSong(userinput);
-                currentSongPointer->printParameters();
+        else if(terminalinput == "search"){
+            searchPrint();
+            cin >> terminalinput;
+            if(terminalinput == "1"){
+                cout << "Enter the name of the song to search: " << endl;
+                cin.ignore();
+                getline(cin, userinput);
+                if(database.searchSong(userinput)){
+                    currentSongPointer = database.returnSong(userinput);
+                    currentSongPointer->printParameters();
+                }
+                else{
+                    cout << "Song does not exist" << endl;
+                }
             }
-            else{
-                cout << "Song does not exist" << endl;
+            else if(terminalinput == "2"){
+                cout << "Enter the name of the artist to search: " << endl;
+                cin.ignore();
+                getline(cin, userinput);
+                // if(database.searchArtist(userinput)){
+                database.printArtist(userinput);
+                // }
+                // else{
+                //     cout << "Artist does not exist" << endl;
+                // }
+            }
+            else if(terminalinput == "3"){
+                cout << "Enter the name of the album to search: " << endl;
+                cin.ignore();
+                getline(cin, userinput);
+                // if(database.searchArtist(userinput)){
+                database.printAlbum(userinput);
+                // }
+                // else{
+                //     cout << "Artist does not exist" << endl;
+                // }
             }
         }
-        else if(terminalinput == 4){
+        else if(terminalinput == "4"){
             //create playlist
         }
-        else if(terminalinput == 6){
+        else if(terminalinput == "songlist"){
             database.listsonglist();
-            cout << endl;
         }
-        else if(terminalinput == 0){
+        else if(terminalinput == "export"){
+            database.exportsonglist();
+            cout << "Songs Exported" << endl;
+        }
+        else if(terminalinput == "exit"){
             cout << "Exiting Program" << endl;
-            break;
+        }
+        else if(terminalinput == "sizedb"){
+            cout << "There are currently " << database.returnSongNum() << " songs in the database." << endl;
+        }
+        else{
+            cout << "Invalid Input" << endl;
         }
     }
 
