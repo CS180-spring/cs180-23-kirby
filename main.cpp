@@ -58,7 +58,20 @@ int main() {
             }
         }
         else if(terminalinput == 4){
-            //create playlist
+            system("clear");
+            cout << "Enter the name of the playlist: " << endl;
+            cin >> userinput;
+            database.listsonglist();
+            cout << "Enter the name of the song to add: " << endl;
+            cin >> userinput;
+            if(database.searchSong(userinput)){
+                //add song to the playlist
+            }
+        }
+        else if(terminalinput == 5){
+            system("clear");
+            //list playlists
+            //database.listplaylistlist();
         }
         else if(terminalinput == 6){
             database.listsonglist();
