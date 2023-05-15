@@ -19,7 +19,7 @@ int main() {
 
 
     while(terminalinput != "exit"){ //arbitrary number to stay in loop
-        newterminalprint();
+        terminalprint();
         cin >> terminalinput;
         if(terminalinput == "add"){
             cin.ignore();
@@ -90,6 +90,12 @@ int main() {
         else if(terminalinput == "createplaylist"){
             cin.ignore();
             database.addPlaylist();
+        }
+        else if(terminalinput == "addexisting"){
+            cout << "Enter the name of the playlist to edit: " << endl;
+            cin.ignore();
+            getline(cin, userinput);
+            database.modifyPlaylistSongs(userinput);
         }
         else if(terminalinput == "playlist"){
             cin.ignore();

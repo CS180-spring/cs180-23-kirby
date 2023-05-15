@@ -76,7 +76,7 @@ public:
             cout << "Playlist by that name already exists. Do you want to modify the playlist instead? (y or n)" << endl;
             cin >> decision;
             if(decision == 'y'){
-                modifyPlaylist(userinput);
+                modifyPlaylistName(userinput);
             }
             if(decision == 'n'){
                 return;
@@ -110,11 +110,11 @@ public:
         }
         this->playlist[playlistName] =  newPlaylist; 
     }
-    void modifyPlaylist(string playlist){
+    void modifyPlaylistName(string playlist){
         string userinput;
         char decision;
         if(this->playlist.count(userinput)){
-            cout << "Works";
+            cout << "Playlist " << userinput << "exists";
         }
         else{
             cout << "Playlist does not exist, try another playlist? (y or n)";
@@ -124,11 +124,35 @@ public:
                 cout << "Enter playlist to modify name: " << endl;
 
                 getline(cin, userinput);
-                modifyPlaylist(userinput);
+                modifyPlaylistName(userinput);
             }
 
         }
-        
+    }
+    void modifyPlaylistSongs(string userinput){
+        char decision;
+        kirbydb database;
+        string outputfile = "output.csv";
+        vector<Song*> currPlaylist;
+        if(this->playlist.count(userinput)){
+            cout << "The playlist " << userinput << " exists. \n";
+            cout << "Would you like to add a song from the database or import from file" << endl;
+            cin >> userinput;
+                if(userinput == "add"){
+                    cin.ignore();
+                    listsonglist();
+                    getline(cin, userinput);
+                    currPlaylist.push_back(returnSong(userinput));
+                }
+                else if(userinput == "import"){
+                    cin.ignore();
+                    //importfromfile(outputfile, database);
+                    currPlaylist.push_back(returnSong(userinput));
+                }
+            }
+            else{
+                
+            }
     }
     void listPlaylist(){
         if(playlist.size() == 0){
