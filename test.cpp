@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "kirbydb.h"
-#include "addsong.cpp"
+//#include "addsong.cpp"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ int main() {
     cout << "Song Pointer Created." << endl;
     currentSongPointer->printParameters();
     cout << "Add a new song (custom)" << endl;
-    addonesong(database);
+    //addonesong(database);
     cout << "How many songs are in the database right now?" << endl;
     cout << database.returnSongNum() << endl;
     cout << "What was the song name?" << endl;
