@@ -95,23 +95,11 @@ function myFunction() {
 
           for(let i = 0; i < x.rows.length; i++){
             for(let j = 0; j < x.rows[i].cells.length; j++){
-              // Checks song and deletes entire row
-              if(song == x.rows[i].cells[j].innerHTML){
-                x.deleteRow(i);
-                break;
-              }
-              // Checks artist and deletes entire row
-              else if(artist == x.rows[i].cells[j].innerHTML){
-                x.deleteRow(i);
-                break;
-              }
-              // Checks album and deletes entire row
-              else if(album == x.rows[i].cells[j].innerHTML){
-                x.deleteRow(i);
-                break;
-              }
-              // Checks genre and deletes entire row
-              else if(genre == x.rows[i].cells[j].innerHTML){
+              // Checks all attribtues and deletes entire row
+              if(song == x.rows[i].cells[j].innerHTML ||
+                artist == x.rows[i].cells[j].innerHTML || 
+                album == x.rows[i].cells[j].innerHTML ||
+                genre == x.rows[i].cells[j].innerHTML){
                 x.deleteRow(i);
                 break;
               }
@@ -128,26 +116,19 @@ function myFunction() {
           var genre = document.getElementById("inputGenreName").value;
           var x = document.getElementById("table");
 
+          document.getElementById("demo").innerHTML = "";
+
           for(let i = 0; i < x.rows.length; i++){
             for(let j = 0; j < x.rows[i].cells.length; j++){
-              // Checks song and prints entire row
-              if(song == x.rows[i].cells[j].innerHTML){
-                document.getElementById("demo").innerHTML += "Song: " + x.rows[i].cells[0].innerHTML + "<br>" +;
-                break;
-              }
-              // Checks artist and prints entire row
-              else if(artist == x.rows[i].cells[j].innerHTML){
-                document.getElementById("demo").innerHTML += x.rows[i].innerHTML + "<br>";
-                break;
-              }
-              // Checks album and prints entire row
-              else if(album == x.rows[i].cells[j].innerHTML){
-                document.getElementById("demo").innerHTML += x.rows[i].innerHTML + "<br>";
-                break;
-              }
-              // Checks genre and prints entire row
-              else if(genre == x.rows[i].cells[j].innerHTML){
-                document.getElementById("demo").innerHTML += x.rows[i].innerHTML + "<br>";
+              // Checks all attributes and prints entire row
+              if(song == x.rows[i].cells[j].innerHTML || 
+                 artist == x.rows[i].cells[j].innerHTML || 
+                 album == x.rows[i].cells[j].innerHTML || 
+                 genre == x.rows[i].cells[j].innerHTML){
+                document.getElementById("demo").innerHTML += "Song: " + x.rows[i].cells[0].innerHTML + "<br>" +
+                  "Artist: " + x.rows[i].cells[1].innerHTML + "<br>" +
+                  "Album: " + x.rows[i].cells[2].innerHTML + "<br>" +
+                  "Genre: " + x.rows[i].cells[3].innerHTML + "<br>";
                 break;
               }
             }
@@ -177,7 +158,6 @@ function myFunction() {
                 <th>Artist</th>
                 <th>Album</th>
                 <th>Genre</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody id = "point">
