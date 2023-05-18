@@ -12,7 +12,7 @@ class kirbydb
 {
 private:
     unordered_map<string, Song *> songlist;
-    unordered_map<string, vector<Song *>> playlist;
+    unordered_map<string, vector<Song *> > playlist;
     // Up for change below(Search by artist, genre)
     unordered_map<string, Song *> artistlist;
     unordered_map<string, Song *> genrelist;
@@ -158,9 +158,9 @@ public:
             if (!(playlistExists(userinput)))
             {
                 // check this for errors @ george
-                auto handler = playlist.extract(playList);
-                handler.key() = userinput;
-                playlist.insert(move(handler));
+                //auto handler = playlist.extract(playList);
+                // handler.key() = userinput;
+                // playlist.insert(move(handler));
             }
         }
         else
