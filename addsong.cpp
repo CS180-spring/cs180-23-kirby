@@ -9,7 +9,7 @@ using namespace std;
 int importfromfile(string outputfile, kirbydb &database)
 {
     string inputfile;
-    // cout << "Name of Input File: \n";
+    cout << "Name of Input File: \n";
     cin >> inputfile;
     ifstream input(inputfile);
     while (!input)
