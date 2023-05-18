@@ -8,6 +8,7 @@ using namespace std;
 #include "Song.h"
 #include <fstream>
 #include <utility>
+#include <iostream>
 class kirbydb
 {
 private:
@@ -135,32 +136,24 @@ public:
         this->playlist[playlistName] = newPlaylist;
     }
 
-    bool playlistExists(string playList)
-    {
-        if (this->playlist.count(playList))
-        {
-            cout << "Playlist " << playList << "exists";
-            return true;
-        }
-
-        return false;
-    }
     void modifyPlaylistName(string playList)
     {
         string userinput;
-        char decision;
-
-        if (playlistExists(playList))
+        char decision;  
+        
+        if (playlist.count(playList))
         {
             cout << "Enter the new name of this playlist: ";
-            cin >> userinput;
+            getline(cin, userinput);
 
-            if (!(playlistExists(userinput)))
+            if (!(playlist.count(userinput)))
             {
-                // check this for errors @ george
-                //auto handler = playlist.extract(playList);
-                // handler.key() = userinput;
-                // playlist.insert(move(handler));
+                auto oldPlaylist = playlist.find(playList);
+                playlist.erase(oldPlaylist->first);
+                playlist[userinput] =  oldPlaylist->second;
+            }
+            else{
+                cout << "Playlist " << userinput << "already exists" << endl;
             }
         }
         else
@@ -171,10 +164,9 @@ public:
     void modifyPlaylistSongs(string userinput)
     {
         char decision;
-        // kirbydb database;
         string outputfile = "output.csv";
         vector<Song *> currPlaylist;
-        if (playlistExists(userinput))
+        if (playlist.count(userinput))
         {
             cout << "Would you like to add a song from the database or import from file" << endl;
             cin >> userinput;
@@ -207,9 +199,10 @@ public:
         for (auto x : playlist)
         {
             cout << x.first << ": " << endl;
+            int num = 1;
             for (auto song : x.second)
             {
-                cout << "   " << song->getName() << endl;
+                cout << "   " << num++ << ". " << song->getName() << endl;
             }
         }
     }
@@ -302,6 +295,51 @@ public:
         for (auto x : songlist)
         {
             output << x.second->returnName() << "," << x.second->returnArtist() << "," << x.second->returnAlbum() << "," << x.second->returnGenre() << endl;
+        }
+    }
+
+    void modifyPlaylistSongOrder(){
+        char decision;
+        int song1, song2;
+        string userinput;
+        listPlaylist();
+        cout << "Which playlist would you like to modify?" << endl;
+        getline(cin, userinput);
+        if(!playlist.count(userinput)){
+            cout << "Playlist does not exist" << endl;
+            return;
+        }
+        if(playlist[userinput].size() < 2){
+            cout << "Unable to modify playslist song order. At least two songs are required to modify playlist." << endl;
+            return;
+        }
+        while(true){
+            listPlaylistSongs(userinput);
+            cout << "Which songs would you like to change the order of? Enter '0' to end." << endl;
+            cin >> song1 >> song2;
+
+            
+            if(song1 == 0 || song2 == 0){
+                return;
+            }
+            else if(song1 < 0 || song2 < 0 || song1 > playlist[userinput].size() || song2 > playlist[userinput].size()){
+                cout << "One or more of these entries does not exist. Please pick a track within the given playlit range ("
+                    << 1 << "-" << playlist[userinput].size() << ")." << endl;
+            }
+            else{
+                swap(playlist[userinput][song1 - 1],playlist[userinput][song2 - 1]);
+                cout << "Done!" << endl;
+            }
+
+        }
+        
+    }
+    // Infers playlist already exists.
+    void listPlaylistSongs(string currPlaylist){
+        cout << "Playlist: " << currPlaylist << endl;
+        int count = 1;
+        for(auto song : playlist[currPlaylist]){
+            cout << " " << count++ << ". " << song->getName() << endl;
         }
     }
 };
