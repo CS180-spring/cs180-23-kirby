@@ -14,6 +14,7 @@ void terminalprint(){
     cout << "6. Edit Playlist" << endl;
     cout << "7. View all songs in database" << endl;
     cout << "9. Export Changes to File" << endl;
+    cout << "11. Change Playlist Song Order" << endl;
     cout << "0. Exit Program" << endl;
 }
 
