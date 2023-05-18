@@ -96,6 +96,11 @@ int main() {
             database.listsonglist();
             cout << endl;
         }
+        else if(terminalinput == 11){
+            cin.ignore();
+            database.modifyPlaylistSongOrder();
+            cout << endl;
+        }
         else if(terminalinput == 0){
             cout << "Exiting Program" << endl;
             break;
