@@ -1,5 +1,8 @@
-using namespace std;
-
+#include <iostream>
+#include <string>
+#include "kirbydb.h"
+#include "addsong.cpp"
+#include "terminal.cpp"
 int main() {
     kirbydb database;
     string outputfile = "output.csv";
