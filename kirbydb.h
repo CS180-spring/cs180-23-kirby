@@ -174,9 +174,8 @@ public:
         // kirbydb database;
         string outputfile = "output.csv";
         vector<Song *> currPlaylist;
-        if (this->playlist.count(userinput))
+        if (playlistExists(userinput))
         {
-            cout << "The playlist " << userinput << " exists. \n";
             cout << "Would you like to add a song from the database or import from file" << endl;
             cin >> userinput;
             if (userinput == "add")
@@ -195,6 +194,8 @@ public:
         }
         else
         {
+
+            cout << "Playlist " << userinput << "does NOT exists" << endl;
         }
     }
     void listPlaylist()
