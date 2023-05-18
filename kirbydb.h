@@ -155,13 +155,13 @@ public:
             cout << "Enter the new name of this playlist: ";
             cin >> userinput;
 
-            if (!(playlistExists(userinput)))
-            {
-                // check this for errors @ george
-                //auto handler = playlist.extract(playList);
-                // handler.key() = userinput;
-                // playlist.insert(move(handler));
-            }
+            // if (!(playlistExists(userinput)))
+            // {
+            //     // check this for errors @ george
+            //     auto handler = playlist.extract(playList);
+            //     handler.key() = userinput;
+            //     playlist.insert(move(handler));
+            // }
         }
         else
         {
@@ -216,20 +216,17 @@ public:
     bool searchArtist(string artistName)
     {
         int songcount = 0;
-        for (auto x : songlist)
-        {
-            if (x.second->returnArtist() == artistName)
-            {
-                // cout << "Found Artist" << endl;
+        cout << "Bool Search Artist: " << artistName << "." << endl;
+        for (auto x : songlist){
+            if (x.second->returnArtist() == artistName){
+                cout << "Found Artist" << endl;
                 songcount++;
             }
         }
-        if (songcount > 0)
-        {
+        if (songcount > 0){
             return true;
         }
-        else
-        {
+        else{
             return false;
         }
     }
@@ -257,8 +254,7 @@ public:
 
     void printArtist(string artist)
     {
-        if (searchArtist(artist))
-        {
+        if (searchArtist(artist)){
             cout << "Songs by " << artist << ": " << endl;
             for (auto x : songlist)
             {
@@ -269,17 +265,14 @@ public:
                 // cout << x.second->returnArtist() << endl;
             }
         }
-        else
-        {
+        else{
             cout << "Artist does not exist" << endl;
         }
     }
 
-    void printAlbum(string album)
-    {
-        if (searchAlbum(album))
-        {
-            cout << "Songs by " << album << ": " << endl;
+    void printAlbum(string album){
+        if(searchAlbum(album)){
+            cout << "Songs in " << album << ": " << endl;
             for (auto x : songlist)
             {
                 if (x.second->returnAlbum() == album)
@@ -289,8 +282,7 @@ public:
                 // cout << x.second->returnArtist() << endl;
             }
         }
-        else
-        {
+        else{
             cout << "Album does not exist" << endl;
         }
     }
