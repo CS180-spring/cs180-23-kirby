@@ -2,189 +2,172 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Kirby DB</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+  <meta charset="UTF-8">
+  <title>Kirby DB</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
 
-        tr:hover {
-            background-color: #f5f5f5;
-        }
+    tr:hover {
+      background-color: #f5f5f5;
+    }
 
-        button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
 
-        button:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+    button:hover {
+      background-color: #3e8e41;
+    }
+  </style>
 </head>
 
 <body>
-        <button onclick="Testthis()">test</button>
-      <div class="banner-info" align="center">
-        <span><label>Song Name </label></span>
-        <span><input id="inputSongName" type="text" class="text-center" required="" placeholder="Enter Song Name"></span><br>
-        <span><label>Artist Name </label></span>
-        <span><input id="inputArtistName" type="text" class="text-center" required="" placeholder="Enter Artist Name"></span><br>
-        <span><label>Album Name </label></span>
-        <span><input id="inputAlbumName" type="text" class="text-center" required="" placeholder="Enter Album Name"></span><br>
-        <span><label>Genre Name </label></span>
-        <span><input id="inputGenreName" type="text" class="text-center" required="" placeholder="Enter Genre Name"></span><br>
-      </div>
-        <!-- Manual Add Button -->
-        <button onclick="insertData()">Add Entry</button>
-        <!-- Delete Button -->
-        <button onclick="DeleteData()">Delete Entry</button>
-        <!-- Search Button -->
-        <button onclick="SearchData()">Search For Entry</button>
+  Please Select text file of which contents are to be read:
+  <input type="file" id="txtfiletoread" />
+  <div class="banner-info" align="center">
+    <span><label>Song Name </label></span>
+    <span><input id="inputSongName" type="text" class="text-center" required=""
+        placeholder="Enter Song Name"></span><br>
+    <span><label>Artist Name </label></span>
+    <span><input id="inputArtistName" type="text" class="text-center" required=""
+        placeholder="Enter Artist Name"></span><br>
+    <span><label>Album Name </label></span>
+    <span><input id="inputAlbumName" type="text" class="text-center" required=""
+        placeholder="Enter Album Name"></span><br>
+    <span><label>Genre Name </label></span>
+    <span><input id="inputGenreName" type="text" class="text-center" required=""
+        placeholder="Enter Genre Name"></span><br>
+  </div>
+  <!-- Manual Add Button -->
+  <button onclick="insertData()">Add Entry</button>
+  <!-- Delete Button -->
+  <button onclick="DeleteData()">Delete Entry</button>
+  <!-- Search Button -->
+  <button onclick="SearchData()">Search For Entry</button>
 
-<script>
-function myFunction() {
-  var x = document.getElementById("table");
-  document.getElementById("demo").innerHTML = x.rows[0].innerHTML;
-}
-</script>
-      <script>
-        // Manual  Insert Function
-        function insertData(){
-          var song = document.getElementById("inputSongName").value;
-          var artist = document.getElementById("inputArtistName").value;
-          var album = document.getElementById("inputAlbumName").value;
-          var genre = document.getElementById("inputGenreName").value;
+  <script>
+    function myFunction() {
+      var x = document.getElementById("table");
+      document.getElementById("demo").innerHTML = x.rows[0].innerHTML;
+    }
+  </script>
+  <script>
+    // Manual  Insert Function
+    function insertData() {
+      var song = document.getElementById("inputSongName").value;
+      var artist = document.getElementById("inputArtistName").value;
+      var album = document.getElementById("inputAlbumName").value;
+      var genre = document.getElementById("inputGenreName").value;
 
-          
-          document.getElementById("point").innerHTML += "<tr><td>" + song + "</td><td>" + 
-            artist + "</td><td>" + album + "</td><td>" + genre + "</td></tr>";
 
-          // Resets text field
-          document.getElementById("inputSongName").value = "";
-          document.getElementById("inputArtistName").value = "";
-          document.getElementById("inputAlbumName").value = "";
-          document.getElementById("inputGenreName").value = "";
-        }
-      </script>
-      <script>
-        // Delete Function
-        function DeleteData(){
-          var song = document.getElementById("inputSongName").value;
-          var artist = document.getElementById("inputArtistName").value;
-          var album = document.getElementById("inputAlbumName").value;
-          var genre = document.getElementById("inputGenreName").value;
-          var x = document.getElementById("table");
+      document.getElementById("point").innerHTML += "<tr><td>" + song + "</td><td>" +
+        artist + "</td><td>" + album + "</td><td>" + genre + "</td></tr>";
 
-          for(let i = 0; i < x.rows.length; i++){
-            for(let j = 0; j < x.rows[i].cells.length; j++){
-              // Checks all attribtues and deletes entire row
-              if(song == x.rows[i].cells[j].innerHTML ||
-                artist == x.rows[i].cells[j].innerHTML || 
-                album == x.rows[i].cells[j].innerHTML ||
-                genre == x.rows[i].cells[j].innerHTML){
-                x.deleteRow(i);
-                break;
-              }
-            }
+      // Resets text field
+      document.getElementById("inputSongName").value = "";
+      document.getElementById("inputArtistName").value = "";
+      document.getElementById("inputAlbumName").value = "";
+      document.getElementById("inputGenreName").value = "";
+    }
+  </script>
+  <script>
+    // Delete Function
+    function DeleteData() {
+      var song = document.getElementById("inputSongName").value;
+      var artist = document.getElementById("inputArtistName").value;
+      var album = document.getElementById("inputAlbumName").value;
+      var genre = document.getElementById("inputGenreName").value;
+      var x = document.getElementById("table");
+
+      for (let i = 0; i < x.rows.length; i++) {
+        for (let j = 0; j < x.rows[i].cells.length; j++) {
+          // Checks all attribtues and deletes entire row
+          if (song == x.rows[i].cells[j].innerHTML ||
+            artist == x.rows[i].cells[j].innerHTML ||
+            album == x.rows[i].cells[j].innerHTML ||
+            genre == x.rows[i].cells[j].innerHTML) {
+            x.deleteRow(i);
+            break;
           }
         }
-      </script>
-      <script>
-        // Search Function
-        function SearchData(){
-          var song = document.getElementById("inputSongName").value;
-          var artist = document.getElementById("inputArtistName").value;
-          var album = document.getElementById("inputAlbumName").value;
-          var genre = document.getElementById("inputGenreName").value;
-          var x = document.getElementById("table");
+      }
+    }
+  </script>
+  <script>
+    // Search Function
+    function SearchData() {
+      var song = document.getElementById("inputSongName").value;
+      var artist = document.getElementById("inputArtistName").value;
+      var album = document.getElementById("inputAlbumName").value;
+      var genre = document.getElementById("inputGenreName").value;
+      var x = document.getElementById("table");
 
-          document.getElementById("demo").innerHTML = "";
+      document.getElementById("demo").innerHTML = "";
 
-          for(let i = 0; i < x.rows.length; i++){
-            for(let j = 0; j < x.rows[i].cells.length; j++){
-              // Checks all attributes and prints entire row
-              if(song == x.rows[i].cells[j].innerHTML || 
-                 artist == x.rows[i].cells[j].innerHTML || 
-                 album == x.rows[i].cells[j].innerHTML || 
-                 genre == x.rows[i].cells[j].innerHTML){
-                document.getElementById("demo").innerHTML += "Song: " + x.rows[i].cells[0].innerHTML + "<br>" +
-                  "Artist: " + x.rows[i].cells[1].innerHTML + "<br>" +
-                  "Album: " + x.rows[i].cells[2].innerHTML + "<br>" +
-                  "Genre: " + x.rows[i].cells[3].innerHTML + "<br>";
-                break;
-              }
-            }
+      for (let i = 0; i < x.rows.length; i++) {
+        for (let j = 0; j < x.rows[i].cells.length; j++) {
+          // Checks all attributes and prints entire row
+          if (song == x.rows[i].cells[j].innerHTML ||
+            artist == x.rows[i].cells[j].innerHTML ||
+            album == x.rows[i].cells[j].innerHTML ||
+            genre == x.rows[i].cells[j].innerHTML) {
+            document.getElementById("demo").innerHTML += "Song: " + x.rows[i].cells[0].innerHTML + "<br>" +
+              "Artist: " + x.rows[i].cells[1].innerHTML + "<br>" +
+              "Album: " + x.rows[i].cells[2].innerHTML + "<br>" +
+              "Genre: " + x.rows[i].cells[3].innerHTML + "<br>";
+            break;
           }
         }
-      </script>
-      <script>
-        function Testthis(){
-          var x = document.getElementById("table");
-          var row = x.insertRow(0);
-          var cell0 =  row.insertCell(0);
-          var cell1 =  row.insertCell(1);
-          var cell2 =  row.insertCell(2);
-          var cell3 =  row.insertCell(3);
-          const fs = require('fs');
-          fs.readFile('tp.txt', (err, data) => {
-            document.getElementById("demo").innerHTML = data.toString();
-          });
-        }
-      </script>
-    <h1>Kirby DB</h1>
-    <h1><span id = "demo"></span></h1>
-    <table id = "table">
-        <thead>
-            <tr>
-                <th>Song</th>
-                <th>Artist</th>
-                <th>Album</th>
-                <th>Genre</th>
-            </tr>
-        </thead>
-        <tbody id = "point">
-        </tbody>
-        <tbody>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-                <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Data 4</td>
-                <td>Data 5</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+      }
+    }
+  </script>
+  <script>
+    function Testthis() {
+      var x = document.getElementById("table");
+      var row = x.insertRow(0);
+      var cell0 = row.insertCell(0);
+      var cell1 = row.insertCell(1);
+      var cell2 = row.insertCell(2);
+      var cell3 = row.insertCell(3);
+      const fs = require('fs');
+      fs.readFile('tp.txt', (err, data) => {
+        document.getElementById("filecontents").innerHTML = data.toString();
+      });
+    }
+  </script>
+  <h1>Kirby DB</h1>
+  <h1><span id="demo"></span></h1>
+  <table id="table">
+    <thead>
+      <tr>
+        <th>Song</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>Genre</th>
+      </tr>
+    </thead>
+    <tbody id="point">
+    </tbody>
+  </table>
 </body>
 
 </html>
