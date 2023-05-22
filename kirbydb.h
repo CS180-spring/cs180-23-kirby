@@ -135,6 +135,20 @@ public:
         }
         this->playlist[playlistName] = newPlaylist;
     }
+    void nooutputaddPlaylist(vector<string> importlist)
+    {
+        string playlistName = importlist[0];
+        string currentsong;
+        vector<Song *> newPlaylist;
+        for(int i = 1; i < importlist.size(); i++)
+        {
+            currentsong = importlist[i];
+            if (searchSong(currentsong)){
+                newPlaylist.push_back(returnSong(currentsong));
+            }
+        }
+        this->playlist[playlistName] = newPlaylist;
+    }
 
     void modifyPlaylistName(string playList)
     {
@@ -190,6 +204,12 @@ public:
             cout << "Playlist " << userinput << "does NOT exists" << endl;
         }
     }
+    
+    void addsongplaylist(string songname){
+
+    }
+
+    
     void listPlaylist()
     {
         if (playlist.size() == 0)
@@ -280,13 +300,26 @@ public:
         }
     }
 
-    void exportsonglist()
+    void exportsonglist(string filename)
     {
         ofstream output;
-        output.open("output.csv");
+        output.open(filename);
         for (auto x : songlist)
         {
             output << x.second->returnName() << "," << x.second->returnArtist() << "," << x.second->returnAlbum() << "," << x.second->returnGenre() << endl;
+        }
+    }
+    void exportplaylist()
+    {
+        ofstream output;
+        output.open("dbplaylists.csv");
+        for (auto x : playlist)
+        {
+            output << x.first;
+            for(auto y : x.second){
+                output << "," << y->returnName();
+            }
+            output << endl;
         }
     }
 

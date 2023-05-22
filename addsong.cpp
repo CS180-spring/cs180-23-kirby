@@ -44,6 +44,73 @@ int importfromfile(string outputfile, kirbydb &database)
     return 0;
 }
 
+int dbinitialize(string outputfile, kirbydb &database)
+{
+    ifstream input(outputfile);
+    while (!input)
+    {
+        return 0;
+    }
+    vector<vector<string>> content;
+    vector<string> row;
+    string line, word;
+
+    // Read data from file, and add to vector
+    while (getline(input, line))
+    {
+        row.clear();
+        stringstream str(line);
+        while (getline(str, word, ','))
+        {
+            row.push_back(word);
+        }
+        content.push_back(row);
+    }
+    // Content is now inside vector. Add to database
+    for (int i = 0; i < content.size(); i++)
+    {
+        database.addSong(content[i][0], content[i][1], content[i][2], content[i][3]);
+        // cout << content[i][0] << content[i][1] << content[i][2] << cooontent[i][3] << endl;
+    }
+    // cout << "Songs Imported" << endl;
+    return 0;
+}
+
+int playlistinitialize(kirbydb &database)
+{
+    ifstream input("dbplaylists.csv");
+    while (!input)
+    {
+        return 0;
+    }
+    vector<vector<string>> content;
+    vector<string> row;
+    string line, word;
+
+    // Read data from file, and add to vector
+    while (getline(input, line))
+    {
+        row.clear();
+        stringstream str(line);
+        while (getline(str, word, ','))
+        {
+            row.push_back(word);
+        }
+        content.push_back(row);
+    }
+    for(int i = 0; i < content.size(); i++){
+        database.nooutputaddPlaylist(content[i]);
+    }
+    // // Content is now inside vector. Add to database
+    // for (int i = 0; i < content.size(); i++)
+    // {
+    //     database.createplaylist
+    //     // cout << content[i][0] << content[i][1] << content[i][2] << cooontent[i][3] << endl;
+    // }
+    // cout << "Songs Imported" << endl;
+    return 0;
+}
+
 void addonesong(kirbydb &database)
 { // pass in by reference
     string songname, artistname, albumname, genrename;

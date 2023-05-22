@@ -7,11 +7,18 @@ int main()
 {
     kirbydb database;
     string outputfile = "output.csv";
+
     int terminalinput = 10000; // some large value
+
+    string dbfile = "kirbydb.csv";
+    int terminalinput = 10000; // some large value
+
     string userinput;
     Song *currentSongPointer; // Used to access current song pointer
 
     system("clear");
+    dbinitialize(dbfile, database);
+    playlistinitialize(database);
     cout << "Initialized KirbyDB database" << endl;
     cout << "Default Export File is output.csv" << endl;
 
@@ -102,9 +109,11 @@ int main()
         {
             database.listsonglist();
         }
+
         else if (terminalinput == 9)
         {
-            database.exportsonglist();
+            database.exportsonglist(outputfile);
+            database.exportplaylist();
             cout << "Songs Exported" << endl;
         }
         else if (terminalinput == 6)
@@ -124,6 +133,7 @@ int main()
             break;
         }
     }
+    database.exportsonglist(dbfile);
 
     return 0;
 }
