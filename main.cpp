@@ -104,8 +104,10 @@ int main()
         {
             database.listsonglist();
         }
+
         else if (terminalinput == 9)
         {
+
             database.exportsonglist(outputfile);
             database.exportplaylist();
             cout << "Songs Exported" << endl;

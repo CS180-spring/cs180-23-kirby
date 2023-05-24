@@ -140,6 +140,7 @@ public:
         string playlistName = importlist[0];
         string currentsong;
         vector<Song *> newPlaylist;
+
         for (int i = 1; i < importlist.size(); i++)
         {
             currentsong = importlist[i];
@@ -357,8 +358,10 @@ public:
         for (auto x : playlist)
         {
             output << x.first;
+
             for (auto y : x.second)
             {
+
                 output << "," << y->returnName();
             }
             output << endl;
