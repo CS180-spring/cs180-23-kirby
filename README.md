@@ -8,7 +8,7 @@ KirbyDB is a **terminal console interface** that allows users to store and inter
 - Jonas Tan
 - Juan Yepez
 - Joseph Hu
-- Chris 
+- Christopher Wong
 
 ## 🛠️ Technologies
 - **Languages**: C/C++
