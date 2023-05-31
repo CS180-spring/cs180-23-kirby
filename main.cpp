@@ -22,7 +22,6 @@ int main()
     cout << "Initialized KirbyDB database" << endl;
     cout << "Default Export File is output.csv" << endl;
 
-    // testing commit for juan
     while (true)
     { // arbitrary number to stay in loop
         terminalprint();
@@ -112,6 +111,7 @@ int main()
 
         else if (terminalinput == 9)
         {
+
             database.exportsonglist(outputfile);
             database.exportplaylist();
             cout << "Songs Exported" << endl;

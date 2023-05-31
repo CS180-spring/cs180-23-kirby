@@ -199,13 +199,12 @@ public:
                 while (true)
                 {
                     cout << endl;
-                    // listsonglist();
-                    /*for (auto x : songlist)
-                    {
-                        cout << x.first << endl;
-                    }*/
+
+                    listsonglist();
                     cout << "Enter the name of the song to add or enter 'done' to finish: " << endl;
-                    // getline(cin, choice);
+
+                    getline(cin, choice);
+
                     if (choice == "done")
                     {
                         break;
@@ -357,8 +356,10 @@ public:
         for (auto x : playlist)
         {
             output << x.first;
+
             for (auto y : x.second)
             {
+
                 output << "," << y->returnName();
             }
             output << endl;

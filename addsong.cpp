@@ -98,7 +98,10 @@ int playlistinitialize(kirbydb &database)
         }
         content.push_back(row);
     }
-    for(int i = 0; i < content.size(); i++){
+
+    for (int i = 0; i < content.size(); i++)
+    {
+
         database.nooutputaddPlaylist(content[i]);
     }
     // // Content is now inside vector. Add to database
