@@ -13,12 +13,13 @@ class Playlist
 private:
     string playlistName;
     unordered_map<string, vector<Song*>> playlist;
-    kirbydb& db;
+    
 public:
-    Playlist(string name){
+    Playlist(string name =""){
         playlistName = name;
     }
     void addSong(string songName){
+        kirbydb& db;
         Song* song = db.returnSong(songName);
         this->playlist[playlistName].push_back(song);
     }
