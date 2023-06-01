@@ -9,6 +9,7 @@ using namespace std;
 int importfromfile(string outputfile, kirbydb &database)
 {
     string inputfile;
+    int addcounter = 0;
     cout << "Name of Input File: \n";
     cin >> inputfile;
     ifstream input(inputfile);
@@ -37,10 +38,12 @@ int importfromfile(string outputfile, kirbydb &database)
     // Content is now inside vector. Add to database
     for (int i = 0; i < content.size(); i++)
     {
-        database.addSong(content[i][0], content[i][1], content[i][2], content[i][3]);
-        // cout << content[i][0] << content[i][1] << content[i][2] << cooontent[i][3] << endl;
+        if(!database.returnSong(content[i][0])){ //Duplicate, only here to count # of times this loop runs
+            database.addSong(content[i][0], content[i][1], content[i][2], content[i][3]);
+            addcounter++;
+        }
     }
-    cout << "Songs Imported" << endl;
+    cout << addcounter << " Songs Imported" << endl;
     return 0;
 }
 

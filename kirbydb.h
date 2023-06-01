@@ -15,10 +15,6 @@ private:
     unordered_map<string, Song *> songlist;
     unordered_map<string, vector<Song *>> playlist;
     // Up for change below(Search by artist, genre)
-    unordered_map<string, Song *> artistlist;
-    unordered_map<string, Song *> genrelist;
-
-    //
     unsigned int songnum;
 
 public:
@@ -37,9 +33,12 @@ public:
     }
     void addSong(string songName, string artistName, string albumName, string genreName)
     {
-        Song *newSong = new Song(songName, artistName, albumName, genreName);
-        songlist[songName] = newSong;
-        songnum++;
+        if(!searchSong(songName)){
+            Song *newSong = new Song(songName, artistName, albumName, genreName);
+            songlist[songName] = newSong;
+            songnum++;
+        }
+        //Do nothing if song is a duplicate
     }
     Song *returnSong(string songname)
     {
@@ -66,7 +65,6 @@ public:
         // Used to check if the database is empty
         return songnum;
     }
-    // Haven't touched below this
     bool searchSong(string songName)
     {
         unordered_map<string, Song *>::iterator got = songlist.find(songName);
@@ -260,7 +258,7 @@ public:
     bool searchArtist(string artistName)
     {
         int songcount = 0;
-        cout << "Bool Search Artist: " << artistName << "." << endl;
+        // cout << "Bool Search Artist: " << artistName << "." << endl;
         for (auto x : songlist)
         {
             if (x.second->returnArtist() == artistName)
@@ -371,38 +369,43 @@ public:
         char decision;
         int song1, song2;
         string userinput;
-        listPlaylist();
-        cout << "Which playlist would you like to modify?" << endl;
-        getline(cin, userinput);
-        if (!playlist.count(userinput))
-        {
-            cout << "Playlist does not exist" << endl;
-            return;
+        if (playlist.size() == 0){
+            cout << "No Playlist Created" << endl;
         }
-        if (playlist[userinput].size() < 2)
-        {
-            cout << "Unable to modify playslist song order. At least two songs are required to modify playlist." << endl;
-            return;
-        }
-        while (true)
-        {
-            listPlaylistSongs(userinput);
-            cout << "Which songs would you like to change the order of? Enter '0' to end." << endl;
-            cin >> song1 >> song2;
-
-            if (song1 == 0 || song2 == 0)
+        else{
+            listPlaylist();
+            cout << "Which playlist would you like to modify?" << endl;
+            getline(cin, userinput);
+            if (!playlist.count(userinput))
             {
+                cout << "Playlist does not exist" << endl;
                 return;
             }
-            else if (song1 < 0 || song2 < 0 || song1 > playlist[userinput].size() || song2 > playlist[userinput].size())
+            if (playlist[userinput].size() < 2)
             {
-                cout << "One or more of these entries does not exist. Please pick a track within the given playlit range ("
-                     << 1 << "-" << playlist[userinput].size() << ")." << endl;
+                cout << "Unable to modify playslist song order. At least two songs are required to modify playlist." << endl;
+                return;
             }
-            else
+            while (true)
             {
-                swap(playlist[userinput][song1 - 1], playlist[userinput][song2 - 1]);
-                cout << "Done!" << endl;
+                listPlaylistSongs(userinput);
+                cout << "Which songs would you like to change the order of? Enter '0' to end." << endl;
+                cin >> song1 >> song2;
+
+                if (song1 == 0 || song2 == 0)
+                {
+                    return;
+                }
+                else if (song1 < 0 || song2 < 0 || song1 > playlist[userinput].size() || song2 > playlist[userinput].size())
+                {
+                    cout << "One or more of these entries does not exist. Please pick a track within the given playlit range ("
+                        << 1 << "-" << playlist[userinput].size() << ")." << endl;
+                }
+                else
+                {
+                    swap(playlist[userinput][song1 - 1], playlist[userinput][song2 - 1]);
+                    cout << "Done!" << endl;
+                }
             }
         }
     }
