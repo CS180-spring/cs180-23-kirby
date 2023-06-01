@@ -11,7 +11,7 @@ int main()
     int terminalinput = 10000; // some large value
 
     string dbfile = "kirbydb.csv";
-    int terminalinput = 10000; // some large value
+    // int terminalinput = 10000; // some large value
 
     string userinput;
     Song *currentSongPointer; // Used to access current song pointer
@@ -62,20 +62,30 @@ int main()
             searchPrint();
             cin.ignore();
             cin >> terminalinput;
-            if (terminalinput == 1)
-            {
+            if(terminalinput == 1){
                 cout << "Enter the name of the song to search: " << endl;
                 cin.ignore();
-                addonesong(database);
+                getline(cin, userinput);
+                if(database.searchSong(userinput)){
+                    currentSongPointer = database.returnSong(userinput);
+                    currentSongPointer->printParameters();
+                }
+                else{
+                    cout << "Song does not exist" << endl;
+                }
             }
-            else if (terminalinput == 2)
-            {
+            else if(terminalinput == 2){
                 cout << "Enter the name of the artist to search: " << endl;
                 cin.ignore();
-                importfromfile(outputfile, database);
+                getline(cin, userinput);
+                // if(database.searchArtist(userinput)){
+                database.printArtist(userinput);
+                // }
+                // else{
+                //     cout << "Artist does not exist" << endl;
+                // }
             }
-            else if (terminalinput == 3)
-            {
+            else if(terminalinput == 3){
                 cout << "Enter the name of the album to search: " << endl;
                 cin.ignore();
                 getline(cin, userinput);
