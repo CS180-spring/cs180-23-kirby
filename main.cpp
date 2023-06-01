@@ -9,6 +9,7 @@ int main()
     string outputfile = "output.csv";
 
     int terminalinput = 10000; // some large value
+    string buffertext;
 
     string dbfile = "kirbydb.csv";
     // int terminalinput = 10000; // some large value
@@ -20,9 +21,9 @@ int main()
     dbinitialize(dbfile, database);
     playlistinitialize(database);
     cout << "Initialized KirbyDB database" << endl;
-    cout << "Default Export File is output.csv" << endl;
+    cout << "Default Export File is output.csv" << endl << endl;
 
-    while (true)
+    while (terminalinput != 0)
     { // arbitrary number to stay in loop
         terminalprint();
         cout << "\nThere are currently " << database.returnSongNum() << " songs in the database." << endl;
@@ -53,8 +54,17 @@ int main()
         {
             system("clear");
             cout << "Enter the name of the song to delete: " << endl;
-            cin >> userinput;
-            database.removeSong(userinput);
+            cin.ignore();
+            getline(cin, userinput);
+            if(database.searchSong(userinput)){
+                //Iterate through all playlist to ensure the song no longer exists anywhere
+                database.removePlaylistSong(userinput);
+                //Delete the song
+                database.removeSong(userinput);
+            }
+            else{
+                cout << "Song not found" << endl;
+            }
         }
         else if (terminalinput == 3)
         {
@@ -97,7 +107,7 @@ int main()
                 // }
             }
         }
-        else if (terminalinput == 4)
+        else if (terminalinput == 6)
         {
             cin.ignore();
             database.addPlaylist();
@@ -107,14 +117,14 @@ int main()
             cin.ignore();
             database.listPlaylist();
         }
-        else if (terminalinput == 6)
+        else if (terminalinput == 7)
         {
             cout << "Enter the name of the playlist to edit: " << endl;
             cin.ignore();
             getline(cin, userinput);
             database.modifyPlaylistSongs(userinput);
         }
-        else if (terminalinput == 7)
+        else if (terminalinput == 4)
         {
             database.listsonglist();
         }
@@ -126,12 +136,12 @@ int main()
             database.exportplaylist();
             cout << "Songs Exported" << endl;
         }
-        else if (terminalinput == 6)
+        else if (terminalinput == 4)
         {
             database.listsonglist();
             cout << endl;
         }
-        else if (terminalinput == 11)
+        else if (terminalinput == 8)
         {
             cin.ignore();
             database.modifyPlaylistSongOrder();
@@ -142,8 +152,10 @@ int main()
             cout << "Exiting Program" << endl;
             break;
         }
+        cout << "Press any key to continue" << endl;
+        cin >> buffertext;
+        system("clear");
     }
     database.exportsonglist(dbfile);
-
     return 0;
 }
