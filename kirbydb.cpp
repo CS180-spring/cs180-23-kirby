@@ -19,9 +19,6 @@ void kirbydb::removeSong(string songName)
     unordered_map<string, Song *>::iterator got = songlist.find(songName);
     if (got == songlist.end())
     {
-        if(songnum > 1){
-            cout << "Song does not exist!" << endl;
-        }
         return;
     }
     // Found the song. Now delete it!
@@ -29,7 +26,7 @@ void kirbydb::removeSong(string songName)
     delete deletepointer;
     songlist.erase(songName);
     songnum--;
-    // cout << "Song deleted." << endl;
+    cout << "Song deleted." << endl;
 }
 int kirbydb::returnSongNum()
     {
@@ -140,4 +137,5 @@ void kirbydb::exportsonglist(string filename)
     {
         output << x.second->returnName() << "," << x.second->returnArtist() << "," << x.second->returnAlbum() << "," << x.second->returnGenre() << endl;
     }
+    // cout << "Export complete" << endl;
 }

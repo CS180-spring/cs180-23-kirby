@@ -63,7 +63,7 @@ int main()
                 database.removeSong(userinput);
             }
             else{
-                cout << "Song not found" << endl;
+                cout << "Song not found(in delete)" << endl;
             }
         }
         else if (terminalinput == 3)
@@ -133,7 +133,9 @@ int main()
         {
 
             database.exportsonglist(outputfile);
+            database.exportsonglist(dbfile);
             database.exportplaylist();
+            cout << "Export complete" << endl;
             cout << "Songs Exported" << endl;
         }
         else if (terminalinput == 4)

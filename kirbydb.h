@@ -161,7 +161,7 @@ public:
 
         if (playlist.count(userinput))
         {
-            cout << "Would you like to add a song from the database or import from file" << endl;
+            cout << "Would you like to add a song from the database(Type add)" << endl;
             cin >> choice;
             if (choice == "add")
             {
