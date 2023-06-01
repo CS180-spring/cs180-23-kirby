@@ -57,10 +57,11 @@ int main()
             cin.ignore();
             getline(cin, userinput);
             if(database.searchSong(userinput)){
-                //Iterate through all playlist to ensure the song no longer exists anywhere
-                database.removePlaylistSong(userinput);
                 //Delete the song
                 database.removeSong(userinput);
+                //Iterate through all playlist to ensure the song no longer exists anywhere
+                database.removePlaylistSong(userinput);
+                
             }
             else{
                 cout << "Song not found" << endl;
