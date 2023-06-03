@@ -11,8 +11,10 @@ void terminalprint(){
     cout << "3. Search Song" << endl;
     cout << "4. Create Playlist" << endl;
     cout << "5. View Playlist/s" << endl;
-    cout << "6. View all songs in database" << endl;
+    cout << "6. Edit Playlist" << endl;
+    cout << "7. View all songs in database" << endl;
     cout << "9. Export Changes to File" << endl;
+    cout << "11. Change Playlist Song Order" << endl;
     cout << "0. Exit Program" << endl;
 }
 
@@ -27,7 +29,3 @@ void searchPrint(){
     cout << "3. Search by Album" << endl;
 }
 
-void newterminalprint(){
-    cout << endl;
-    cout << "kirbydy >> ";
-}

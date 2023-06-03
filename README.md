@@ -8,7 +8,7 @@ KirbyDB is a **terminal console interface** that allows users to store and inter
 - Jonas Tan
 - Juan Yepez
 - Joseph Hu
-- Chris 
+- Christopher Wong
 
 ## 🛠️ Technologies
 - **Languages**: C/C++
@@ -27,4 +27,9 @@ KirbyDB is a **terminal console interface** that allows users to store and inter
   - Feature 1: Ability to create, add, or delete albums/artists/genre/songs. Can also update the documents.
   - Feature 2: Ability to search and filter songs/albums/artists/genre in database.
   - Feature 3: Ability to create playlists using songs from the database.
+  - Feature 4: Modify the order of songs in a playlist
+  - Feature 5: Modify an existing playlist
+  - Feature 6: Export the existing KirbyDB into a csv file
+  - Feature 6: Export a playlist into a csv file
+  - 
 

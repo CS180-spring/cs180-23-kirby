@@ -3,10 +3,16 @@
 using namespace std;
 #include <string>
 #include <locale>
+#include <string>
+#include <locale>
 #include <unordered_map>
 #include <vector>
 #include "Song.h"
 #include <fstream>
+#include <utility>
+#include <iostream>
+class kirbydb
+{
 #include <utility>
 #include <iostream>
 class kirbydb
@@ -52,7 +58,8 @@ public:
             output << endl;
         }
     }
-    void addPlaylist(){
+    void addPlaylist()
+    {
         string userinput;
         char decision;
 
@@ -80,6 +87,8 @@ public:
                 cin >> userinput;
             }
         }
+
+        vector<Song *> newPlaylist;
 
         vector<Song *> newPlaylist;
         cin.ignore();
@@ -143,7 +152,25 @@ public:
             else
             {
                 cout << "Playlist " << userinput << "already exists" << endl;
+        if (playlist.count(playList))
+        {
+            cout << "Enter the new name of this playlist: ";
+            getline(cin, userinput);
+
+            if (!(playlist.count(userinput)))
+            {
+                auto oldPlaylist = playlist.find(playList);
+                playlist.erase(oldPlaylist->first);
+                playlist[userinput] = oldPlaylist->second;
             }
+            else
+            {
+                cout << "Playlist " << userinput << "already exists" << endl;
+            }
+        }
+        else
+        {
+            cout << "Playlist " << playList << "does NOT exists" << endl;
         }
         else
         {
@@ -152,9 +179,17 @@ public:
     }
     void modifyPlaylistSongs(string userinput)
     {
+    void modifyPlaylistSongs(string userinput)
+    {
         char decision;
         string choice; // called it this since userinput was used as param
+        string choice; // called it this since userinput was used as param
         string outputfile = "output.csv";
+        vector<Song *> currPlaylist;
+        // currPlaylist = this->playlist[userinput];
+
+        if (playlist.count(userinput))
+        {
         vector<Song *> currPlaylist;
         // currPlaylist = this->playlist[userinput];
 
@@ -173,7 +208,36 @@ public:
                 {
                     cout << endl;
 
+            cin >> choice;
+            if (choice == "add")
+            {
+                // cin.ignore();
+                // listsonglist();
+                // getline(cin, userinput);
+                // currPlaylist.push_back(returnSong(userinput));
+                cin.ignore();
+                while (true)
+                {
+                    cout << endl;
+
                     listsonglist();
+                    cout << "Enter the name of the song to add or enter 'done' to finish: " << endl;
+
+                    getline(cin, choice);
+
+                    if (choice == "done")
+                    {
+                        break;
+                    }
+                    else if (searchSong(choice))
+                    {
+                        this->playlist[userinput].push_back(returnSong(choice));
+                    }
+                    else
+                    {
+                        system("clear");
+                        cout << "Song or Command Does Not Exist" << endl;
+                    }
                     cout << "Enter the name of the song to add or enter 'done' to finish: " << endl;
 
                     getline(cin, choice);
@@ -214,11 +278,22 @@ public:
     {
         if (playlist.size() == 0)
         {
+
+    void listPlaylist()
+    {
+        if (playlist.size() == 0)
+        {
             cout << "No Playlist Created" << endl;
         }
         for (auto x : playlist)
         {
+        for (auto x : playlist)
+        {
             cout << x.first << ": " << endl;
+            int num = 1;
+            for (auto song : x.second)
+            {
+                cout << "   " << num++ << ". " << song->getName() << endl;
             int num = 1;
             for (auto song : x.second)
             {

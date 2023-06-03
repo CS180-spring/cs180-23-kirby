@@ -22,7 +22,7 @@ int main()
     cout << "Initialized KirbyDB database" << endl;
     cout << "Default Export File is output.csv" << endl;
 
-    while (terminalinput != 0)
+    while (true)
     { // arbitrary number to stay in loop
         terminalprint();
         cout << "\nThere are currently " << database.returnSongNum() << " songs in the database." << endl;
