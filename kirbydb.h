@@ -1,6 +1,8 @@
-#ifndef CS180_23_KIRBY_KIRBYDB_H
-#define CS180_23_KIRBY_KIRBYDB_H
+#ifndef _kirbydb_h_
+#define _kirbydb_h_
 using namespace std;
+#include <string>
+#include <locale>
 #include <string>
 #include <locale>
 #include <unordered_map>
@@ -11,70 +13,49 @@ using namespace std;
 #include <iostream>
 class kirbydb
 {
+#include <utility>
+#include <iostream>
+class kirbydb
+{
 private:
+    unsigned int songnum;
     unordered_map<string, Song *> songlist;
     unordered_map<string, vector<Song *>> playlist;
-    // Up for change below(Search by artist, genre)
-    unsigned int songnum;
 
 public:
     // Functions to be implemented
-    kirbydb()
-    {
+    kirbydb(){
         songnum = 0;
     }
     ~kirbydb() {}
-    void listsonglist()
-    {
-        for (auto x : songlist)
-        {
-            cout << x.first << endl;
-        }
-    }
-    void addSong(string songName, string artistName, string albumName, string genreName)
-    {
-        if(!searchSong(songName)){
-            Song *newSong = new Song(songName, artistName, albumName, genreName);
-            songlist[songName] = newSong;
-            songnum++;
-        }
-        //Do nothing if song is a duplicate
-    }
-    Song *returnSong(string songname)
-    {
+    void listsonglist();
+    void addSong(string songName, string artistName, string albumName, string genreName);
+    Song *returnSong(string songname){
         unordered_map<string, Song *>::iterator got = songlist.find(songname);
         return got->second;
     }
-    void removeSong(string songName)
+    void removeSong(string songName);
+    int returnSongNum();
+    bool searchSong(string songName);
+    bool searchArtist(string artistName);
+    bool searchAlbum(string albumName);
+    void printArtist(string artist);
+    void printAlbum(string album);
+    void exportsonglist(string filename);
+    void exportplaylist()
     {
-        unordered_map<string, Song *>::iterator got = songlist.find(songName);
-        if (got == songlist.end())
+        ofstream output;
+        output.open("dbplaylists.csv");
+        for (auto x : playlist)
         {
-            cout << "Song does not exist!" << endl;
-            return;
-        }
-        // Found the song. Now delete it!
-        Song *deletepointer = got->second;
-        delete deletepointer;
-        songlist.erase(songName);
-        songnum--;
-        cout << "Song deleted." << endl;
-    }
-    int returnSongNum()
-    {
-        // Used to check if the database is empty
-        return songnum;
-    }
-    bool searchSong(string songName)
-    {
-        unordered_map<string, Song *>::iterator got = songlist.find(songName);
-        if (got == songlist.end())
-        {
-            return false;
-        }
-        else
-        {
-            return true;
+            output << x.first;
+
+            for (auto y : x.second)
+            {
+
+                output << "," << y->returnName();
+            }
+            output << endl;
         }
     }
     void addPlaylist()
@@ -108,11 +89,13 @@ public:
         }
 
         vector<Song *> newPlaylist;
+
+        vector<Song *> newPlaylist;
         cin.ignore();
         while (true)
         {
             cout << endl
-                 << endl;
+                    << endl;
             listsonglist();
 
             cout << "Enter the name of the song to add or enter 'done' to finish: " << endl;
@@ -133,6 +116,7 @@ public:
         }
         this->playlist[playlistName] = newPlaylist;
     }
+
     void nooutputaddPlaylist(vector<string> importlist)
     {
         string playlistName = importlist[0];
@@ -168,7 +152,25 @@ public:
             else
             {
                 cout << "Playlist " << userinput << "already exists" << endl;
+        if (playlist.count(playList))
+        {
+            cout << "Enter the new name of this playlist: ";
+            getline(cin, userinput);
+
+            if (!(playlist.count(userinput)))
+            {
+                auto oldPlaylist = playlist.find(playList);
+                playlist.erase(oldPlaylist->first);
+                playlist[userinput] = oldPlaylist->second;
             }
+            else
+            {
+                cout << "Playlist " << userinput << "already exists" << endl;
+            }
+        }
+        else
+        {
+            cout << "Playlist " << playList << "does NOT exists" << endl;
         }
         else
         {
@@ -177,9 +179,17 @@ public:
     }
     void modifyPlaylistSongs(string userinput)
     {
+    void modifyPlaylistSongs(string userinput)
+    {
         char decision;
         string choice; // called it this since userinput was used as param
+        string choice; // called it this since userinput was used as param
         string outputfile = "output.csv";
+        vector<Song *> currPlaylist;
+        // currPlaylist = this->playlist[userinput];
+
+        if (playlist.count(userinput))
+        {
         vector<Song *> currPlaylist;
         // currPlaylist = this->playlist[userinput];
 
@@ -198,7 +208,36 @@ public:
                 {
                     cout << endl;
 
+            cin >> choice;
+            if (choice == "add")
+            {
+                // cin.ignore();
+                // listsonglist();
+                // getline(cin, userinput);
+                // currPlaylist.push_back(returnSong(userinput));
+                cin.ignore();
+                while (true)
+                {
+                    cout << endl;
+
                     listsonglist();
+                    cout << "Enter the name of the song to add or enter 'done' to finish: " << endl;
+
+                    getline(cin, choice);
+
+                    if (choice == "done")
+                    {
+                        break;
+                    }
+                    else if (searchSong(choice))
+                    {
+                        this->playlist[userinput].push_back(returnSong(choice));
+                    }
+                    else
+                    {
+                        system("clear");
+                        cout << "Song or Command Does Not Exist" << endl;
+                    }
                     cout << "Enter the name of the song to add or enter 'done' to finish: " << endl;
 
                     getline(cin, choice);
@@ -235,9 +274,10 @@ public:
         }
     }
 
-    void addsongplaylist(string songname)
+    void listPlaylist()
     {
-    }
+        if (playlist.size() == 0)
+        {
 
     void listPlaylist()
     {
@@ -247,7 +287,13 @@ public:
         }
         for (auto x : playlist)
         {
+        for (auto x : playlist)
+        {
             cout << x.first << ": " << endl;
+            int num = 1;
+            for (auto song : x.second)
+            {
+                cout << "   " << num++ << ". " << song->getName() << endl;
             int num = 1;
             for (auto song : x.second)
             {
@@ -255,115 +301,6 @@ public:
             }
         }
     }
-    bool searchArtist(string artistName)
-    {
-        int songcount = 0;
-        // cout << "Bool Search Artist: " << artistName << "." << endl;
-        for (auto x : songlist)
-        {
-            if (x.second->returnArtist() == artistName)
-            {
-                cout << "Found Artist" << endl;
-                songcount++;
-            }
-        }
-        if (songcount > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    bool searchAlbum(string albumName)
-    {
-        int songcount = 0;
-        for (auto x : songlist)
-        {
-            if (x.second->returnAlbum() == albumName)
-            {
-                // cout << "Found Album" << endl;
-                songcount++;
-            }
-        }
-        if (songcount > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    bool searchGenre(string genreName);
-
-    void printArtist(string artist)
-    {
-        if (searchArtist(artist))
-        {
-            cout << "Songs by " << artist << ": " << endl;
-            for (auto x : songlist)
-            {
-                if (x.second->returnArtist() == artist)
-                {
-                    cout << x.first << endl;
-                }
-                // cout << x.second->returnArtist() << endl;
-            }
-        }
-        else
-        {
-            cout << "Artist does not exist" << endl;
-        }
-    }
-
-    void printAlbum(string album)
-    {
-        if (searchAlbum(album))
-        {
-            cout << "Songs in " << album << ": " << endl;
-            for (auto x : songlist)
-            {
-                if (x.second->returnAlbum() == album)
-                {
-                    cout << x.first << endl;
-                }
-                // cout << x.second->returnArtist() << endl;
-            }
-        }
-        else
-        {
-            cout << "Album does not exist" << endl;
-        }
-    }
-
-    void exportsonglist(string filename)
-    {
-        ofstream output;
-        output.open(filename);
-        for (auto x : songlist)
-        {
-            output << x.second->returnName() << "," << x.second->returnArtist() << "," << x.second->returnAlbum() << "," << x.second->returnGenre() << endl;
-        }
-    }
-    void exportplaylist()
-    {
-        ofstream output;
-        output.open("dbplaylists.csv");
-        for (auto x : playlist)
-        {
-            output << x.first;
-
-            for (auto y : x.second)
-            {
-
-                output << "," << y->returnName();
-            }
-            output << endl;
-        }
-    }
-
     void modifyPlaylistSongOrder()
     {
         char decision;
@@ -390,9 +327,12 @@ public:
             {
                 listPlaylistSongs(userinput);
                 cout << "Which songs would you like to change the order of? Enter '0' to end." << endl;
-                cin >> song1 >> song2;
-
-                if (song1 == 0 || song2 == 0)
+                cin >> song1;
+                if(song1 == 0){
+                    return;
+                }
+                cin >> song2;
+                if (song2 == 0)
                 {
                     return;
                 }
@@ -419,6 +359,21 @@ public:
             cout << " " << count++ << ". " << song->getName() << endl;
         }
     }
+    void removePlaylistSong(string songname){
+        for(auto i : playlist){
+            cout << "Iterating through playlist map, currently at " << i.first << endl;
+            for(auto it = i.second.begin(); it != i.second.end(); ++it){
+                Song* currentSong = *it;
+                string returnname = currentSong->getName();
+                cout << "Current song: " << returnname << endl;
+                if(returnname == songname){
+                    cout << "Deleting " << songname << endl;
+                    i.second.erase(i.second.begin() + 1);
+                    listPlaylistSongs(i.first);
+                }
+            }
+        }
+    }
 };
 
-#endif // CS180_23_KIRBY_KIRBYDB_H
+#endif //kirbydh.h

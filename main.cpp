@@ -53,8 +53,17 @@ int main()
         {
             system("clear");
             cout << "Enter the name of the song to delete: " << endl;
-            cin >> userinput;
-            database.removeSong(userinput);
+            cin.ignore();
+            getline(cin, userinput);
+            if(database.searchSong(userinput)){
+                //Iterate through all playlist to ensure the song no longer exists anywhere
+                database.removePlaylistSong(userinput);
+                //Delete the song
+                database.removeSong(userinput);
+            }
+            else{
+                cout << "Song not found" << endl;
+            }
         }
         else if (terminalinput == 3)
         {
