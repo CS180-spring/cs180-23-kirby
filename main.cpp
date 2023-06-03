@@ -159,5 +159,6 @@ int main()
         system("clear");
     }
     database.exportsonglist(dbfile);
+    database.exportplaylist();
     return 0;
 }

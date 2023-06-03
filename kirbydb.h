@@ -53,6 +53,12 @@ public:
             output << endl;
         }
     }
+    void deletePlaylist(string playlistName){
+        while(playlist.count(playlistName)){
+            cout << "Deleting playlist: " << playlistName << endl;
+            playlist.erase(playlistName);
+        }
+    }
     void addPlaylist(){
         string userinput;
         char decision;
@@ -161,7 +167,9 @@ public:
 
         if (playlist.count(userinput))
         {
-            cout << "Would you like to add a song from the database(Type add)" << endl;
+            cout << "\nWhat would you like to do with the playlist:" << endl;
+            cout << "Add: Add a song to the playlist" << endl;
+            cout << "Delete: Delete the playlist" << endl;
             cin >> choice;
             if (choice == "add")
             {
@@ -194,20 +202,18 @@ public:
                     }
                 }
             }
-
-            /*
-            else if (userinput == "import")
+            else if (choice == "delete")
             {
-                cin.ignore();
                 // importfromfile(outputfile, database);
-                currPlaylist.push_back(returnSong(userinput));
+                // cout << "Deleting playlist" << endl;
+                deletePlaylist(userinput);
             }
-            */
+            
         }
         else
         {
 
-            cout << "Playlist " << userinput << "does NOT exists" << endl;
+            cout << "Playlist " << userinput << " does NOT exists" << endl;
         }
     }
 
