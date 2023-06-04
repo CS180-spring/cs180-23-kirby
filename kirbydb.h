@@ -11,6 +11,7 @@ using namespace std;
 #include <fstream>
 #include <utility>
 #include <iostream>
+#include <algorithm>
 class kirbydb
 {
 #include <utility>
@@ -58,8 +59,13 @@ public:
             output << endl;
         }
     }
-    void addPlaylist()
-    {
+    void deletePlaylist(string playlistName){
+        while(playlist.count(playlistName)){
+            cout << "Deleting playlist: " << playlistName << endl;
+            playlist.erase(playlistName);
+        }
+    }
+    void addPlaylist(){
         string userinput;
         char decision;
 
@@ -179,8 +185,6 @@ public:
     }
     void modifyPlaylistSongs(string userinput)
     {
-    void modifyPlaylistSongs(string userinput)
-    {
         char decision;
         string choice; // called it this since userinput was used as param
         string choice; // called it this since userinput was used as param
@@ -190,12 +194,9 @@ public:
 
         if (playlist.count(userinput))
         {
-        vector<Song *> currPlaylist;
-        // currPlaylist = this->playlist[userinput];
-
-        if (playlist.count(userinput))
-        {
-            cout << "Would you like to add a song from the database or import from file" << endl;
+            cout << "\nWhat would you like to do with the playlist:" << endl;
+            cout << "Add: Add a song to the playlist" << endl;
+            cout << "Delete: Delete the playlist" << endl;
             cin >> choice;
             if (choice == "add")
             {
@@ -257,27 +258,20 @@ public:
                     }
                 }
             }
-
-            /*
-            else if (userinput == "import")
+            else if (choice == "delete")
             {
-                cin.ignore();
                 // importfromfile(outputfile, database);
-                currPlaylist.push_back(returnSong(userinput));
+                // cout << "Deleting playlist" << endl;
+                deletePlaylist(userinput);
             }
-            */
+            
         }
         else
         {
 
-            cout << "Playlist " << userinput << "does NOT exists" << endl;
+            cout << "Playlist " << userinput << " does NOT exists" << endl;
         }
     }
-
-    void listPlaylist()
-    {
-        if (playlist.size() == 0)
-        {
 
     void listPlaylist()
     {
@@ -290,10 +284,6 @@ public:
         for (auto x : playlist)
         {
             cout << x.first << ": " << endl;
-            int num = 1;
-            for (auto song : x.second)
-            {
-                cout << "   " << num++ << ". " << song->getName() << endl;
             int num = 1;
             for (auto song : x.second)
             {
@@ -361,18 +351,17 @@ public:
     }
     void removePlaylistSong(string songname){
         for(auto i : playlist){
-            cout << "Iterating through playlist map, currently at " << i.first << endl;
-            for(auto it = i.second.begin(); it != i.second.end(); ++it){
-                Song* currentSong = *it;
-                string returnname = currentSong->getName();
-                cout << "Current song: " << returnname << endl;
-                if(returnname == songname){
-                    cout << "Deleting " << songname << endl;
-                    i.second.erase(i.second.begin() + 1);
-                    listPlaylistSongs(i.first);
-                }
+            auto ispresent = [&songname](Song * currSong) { return currSong->getName() == songname;};
+            auto index = find_if(i.second.begin(), i.second.end(), ispresent);
+            if(index != i.second.end()){
+                i.second.erase(index);
+                listPlaylistSongs(i.first);
+
             }
         }
+        --songnum;
+        songlist.erase(songname);
+
     }
 };
 

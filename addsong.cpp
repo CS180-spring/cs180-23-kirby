@@ -23,7 +23,7 @@ int importfromfile(string outputfile, kirbydb &database)
     vector<vector<string>> content;
     vector<string> row;
     string line, word;
-
+    cout << "File Opened" << endl;
     // Read data from file, and add to vector
     while (getline(input, line))
     {
@@ -35,10 +35,11 @@ int importfromfile(string outputfile, kirbydb &database)
         }
         content.push_back(row);
     }
+    cout << "Input Read" << endl;
     // Content is now inside vector. Add to database
     for (int i = 0; i < content.size(); i++)
     {
-        if(!database.returnSong(content[i][0])){ //Duplicate, only here to count # of times this loop runs
+        if(!database.searchSong(content[i][0])){ //Duplicate, only here to count # of times this loop runs
             database.addSong(content[i][0], content[i][1], content[i][2], content[i][3]);
             addcounter++;
         }
