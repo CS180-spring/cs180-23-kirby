@@ -4,7 +4,7 @@ void kirbydb::listsonglist(){
     for (auto x : songlist){
         cout << x.first << endl;
     }
-}
+} 
 
 void kirbydb::addSong(string songName, string artistName, string albumName, string genreName){
     if(!searchSong(songName)){
@@ -139,3 +139,4 @@ void kirbydb::exportsonglist(string filename)
     }
     // cout << "Export complete" << endl;
 }
+
